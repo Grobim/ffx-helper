@@ -1,13 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import styles from './App.module.css';
+
+import { SimpleAuthPanel } from './features/auth/SimpleAuthPanel';
 import { Counter } from './features/counter/Counter';
-import './App.css';
+
+import logo from './logo.svg';
+import { UserList } from './features/users/UserList';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <SimpleAuthPanel />
+      <UserList />
+      <header className={styles.header}>
+        <img src={logo} className={styles.logo} alt="logo" />
         <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -15,7 +22,7 @@ function App() {
         <span>
           <span>Learn </span>
           <a
-            className="App-link"
+            className={styles.link}
             href="https://reactjs.org/"
             target="_blank"
             rel="noopener noreferrer"
@@ -24,7 +31,7 @@ function App() {
           </a>
           <span>, </span>
           <a
-            className="App-link"
+            className={styles.link}
             href="https://redux.js.org/"
             target="_blank"
             rel="noopener noreferrer"
@@ -33,7 +40,7 @@ function App() {
           </a>
           <span>, </span>
           <a
-            className="App-link"
+            className={styles.link}
             href="https://redux-toolkit.js.org/"
             target="_blank"
             rel="noopener noreferrer"
@@ -42,7 +49,7 @@ function App() {
           </a>
           ,<span> and </span>
           <a
-            className="App-link"
+            className={styles.link}
             href="https://react-redux.js.org/"
             target="_blank"
             rel="noopener noreferrer"
