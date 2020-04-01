@@ -1,19 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { store, rffProps } from './app/redux/store';
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { BrowserRouter } from "react-router-dom";
+
+import App from "./App";
+import { rffProps, store } from "./app/redux/store";
+import "./index.css";
+import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ReactReduxFirebaseProvider {...rffProps}>
-      <App />
-    </ReactReduxFirebaseProvider>
-  </Provider>,
-  document.getElementById('root')
+  <BrowserRouter>
+    <Provider store={store}>
+      <ReactReduxFirebaseProvider {...rffProps}>
+        <App />
+      </ReactReduxFirebaseProvider>
+    </Provider>
+  </BrowserRouter>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
