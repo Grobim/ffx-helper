@@ -7,7 +7,7 @@ import { store } from "../redux/store";
 
 import App from "./App";
 
-test("renders learn react link", () => {
+test("renders Header", () => {
   const { getByText } = render(
     <StaticRouter location="/">
       <Provider store={store}>
@@ -16,5 +16,5 @@ test("renders learn react link", () => {
     </StaticRouter>
   );
 
-  expect(getByText(/learn/i)).toBeInTheDocument();
+  expect(getByText(/FFX Helpers/i)).toBeInTheDocument();
 });

@@ -1,12 +1,17 @@
 import Button from "@material-ui/core/Button";
-import MatDrawer from "@material-ui/core/Drawer";
+import MaterialDrawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PeopleIcon from "@material-ui/icons/People";
-import React, { MouseEventHandler, ReactChild } from "react";
+import React, {
+  ElementRef,
+  forwardRef,
+  MouseEventHandler,
+  ReactChild,
+} from "react";
 import { Link } from "react-router-dom";
 
 import { useStyles } from "./Layout.styles";
@@ -25,12 +30,17 @@ interface NavListItem extends Record<string, any> {
 function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
   const styles = useStyles();
 
-  function NavListItem({ children, className, ...props }: NavListItem) {
+  function NavListItem(
+    { children, className, to, ...props }: NavListItem,
+    ref: ElementRef<any>
+  ) {
     return (
       <Button
         className={`${className} ${styles.navItem}`}
         component={Link}
         onClick={onMenuClose}
+        to={to}
+        ref={ref}
         {...props}
       >
         {children}
@@ -42,7 +52,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
     <div>
       <div className={styles.toolbar} />
       <List component="div">
-        <ListItem component={NavListItem} to="/users">
+        <ListItem component={forwardRef(NavListItem)} to="/users">
           <ListItemIcon>
             <PeopleIcon />
           </ListItemIcon>
@@ -55,7 +65,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
   return (
     <nav className={styles.drawer}>
       <Hidden smUp>
-        <MatDrawer
+        <MaterialDrawer
           variant="temporary"
           open={mobileOpen}
           onClose={onMenuClose}
@@ -67,10 +77,10 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
           }}
         >
           {drawer}
-        </MatDrawer>
+        </MaterialDrawer>
       </Hidden>
       <Hidden xsDown>
-        <MatDrawer
+        <MaterialDrawer
           classes={{
             paper: styles.drawerPaper,
           }}
@@ -78,7 +88,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
           open
         >
           {drawer}
-        </MatDrawer>
+        </MaterialDrawer>
       </Hidden>
     </nav>
   );

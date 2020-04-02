@@ -1,12 +1,12 @@
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
-import MatToolbar from "@material-ui/core/Toolbar";
+import MaterialToolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import React, { MouseEventHandler, ReactChild } from "react";
 import { Link } from "react-router-dom";
 
-import { useStyles } from "./Layout.styles";
+import { getUseStyles } from "./Layout.styles";
 
 interface ToolbarProps {
   onMenuClick: MouseEventHandler;
@@ -17,6 +17,8 @@ interface ToolbarLinkProps extends Record<string, any> {
   children: ReactChild;
   className: string;
 }
+
+const useStyles = getUseStyles();
 
 function Toolbar({ onMenuClick }: ToolbarProps) {
   const styles = useStyles();
@@ -31,7 +33,7 @@ function Toolbar({ onMenuClick }: ToolbarProps) {
 
   return (
     <AppBar position="fixed" className={styles.appBar}>
-      <MatToolbar>
+      <MaterialToolbar>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -44,7 +46,7 @@ function Toolbar({ onMenuClick }: ToolbarProps) {
         <Typography variant="h6" noWrap to="/" component={ToolbarLink}>
           FFX Helpers
         </Typography>
-      </MatToolbar>
+      </MaterialToolbar>
     </AppBar>
   );
 }
