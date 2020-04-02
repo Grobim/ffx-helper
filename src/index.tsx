@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { BrowserRouter } from "react-router-dom";
 
-import App from "./App";
+import App from "./app/App";
 import { rffProps, store } from "./app/redux/store";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
@@ -25,8 +25,8 @@ const render = (Comp: ElementType) => {
 render(App);
 
 if (module.hot) {
-  module.hot.accept("./App", () => {
-    const NextApp = require("./App").default;
+  module.hot.accept("./app/App", () => {
+    const NextApp = require("./app/App").default;
     render(NextApp);
   });
 }
