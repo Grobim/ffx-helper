@@ -6,6 +6,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PeopleIcon from "@material-ui/icons/People";
+import PetsIcon from "@material-ui/icons/Pets";
 import React, {
   ElementRef,
   forwardRef,
@@ -31,7 +32,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
   const styles = useStyles();
 
   function NavListItem(
-    { children, className, to, ...props }: NavListItem,
+    { children, className, ...props }: NavListItem,
     ref: ElementRef<any>
   ) {
     return (
@@ -39,7 +40,6 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
         className={`${className} ${styles.navItem}`}
         component={Link}
         onClick={onMenuClose}
-        to={to}
         ref={ref}
         {...props}
       >
@@ -52,6 +52,12 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
     <div>
       <div className={styles.toolbar} />
       <List component="div">
+        <ListItem component={forwardRef(NavListItem)} to="/capture">
+          <ListItemIcon>
+            <PetsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Capture" />
+        </ListItem>
         <ListItem component={forwardRef(NavListItem)} to="/users">
           <ListItemIcon>
             <PeopleIcon />
