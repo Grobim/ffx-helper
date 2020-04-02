@@ -2,6 +2,7 @@ import {
   configureStore,
   getDefaultMiddleware,
   Reducer,
+  combineReducers,
 } from "@reduxjs/toolkit";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -37,17 +38,24 @@ firebase.initializeApp(firebaseConfig);
 firebase.firestore();
 firebase.functions();
 
+const getReducerMap = () => ({
+  firebase: firebaseReducer as () => FirebaseReducer.Reducer<UserProfile, any>,
+  firestore: firestoreReducer as Reducer<FirestoreState>,
+  ...reducers,
+});
+
 const store = configureStore({
-  reducer: {
-    firebase: firebaseReducer as () => FirebaseReducer.Reducer<
-      UserProfile,
-      any
-    >,
-    firestore: firestoreReducer as Reducer<FirestoreState>,
-    ...reducers,
-  },
+  reducer: getReducerMap(),
   middleware: getDefaultMiddleware({ thunk: { extraArgument: getFirebase } }),
 });
+
+if (process.env.NODE_ENV !== "production") {
+  if (module.hot) {
+    module.hot.accept("./reducers", () => {
+      store.replaceReducer(combineReducers(getReducerMap()));
+    });
+  }
+}
 
 const rrfConfig: Partial<ReactReduxFirebaseConfig> = {
   userProfile: "users",

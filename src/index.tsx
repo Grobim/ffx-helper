@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ElementType } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
@@ -9,16 +9,27 @@ import { rffProps, store } from "./app/redux/store";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <ReactReduxFirebaseProvider {...rffProps}>
-        <App />
-      </ReactReduxFirebaseProvider>
-    </Provider>
-  </BrowserRouter>,
-  document.getElementById("root")
-);
+const render = (Comp: ElementType) => {
+  return ReactDOM.render(
+    <BrowserRouter>
+      <Provider store={store}>
+        <ReactReduxFirebaseProvider {...rffProps}>
+          <Comp />
+        </ReactReduxFirebaseProvider>
+      </Provider>
+    </BrowserRouter>,
+    document.getElementById("root")
+  );
+};
+
+render(App);
+
+if (module.hot) {
+  module.hot.accept("./App", () => {
+    const NextApp = require("./App").default;
+    render(NextApp);
+  });
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
