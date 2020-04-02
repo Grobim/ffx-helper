@@ -27,8 +27,10 @@ const getUseStyles = () =>
       drawerPaper: {
         width: drawerWidth,
       },
-      content: {
+      main: {
         flexGrow: 1,
+      },
+      content: {
         padding: theme.spacing(3),
       },
       navItem: {
@@ -37,6 +39,7 @@ const getUseStyles = () =>
       navToolbar: {
         color: "inherit",
         textDecoration: "none",
+        flexGrow: 1,
       },
     })
   );

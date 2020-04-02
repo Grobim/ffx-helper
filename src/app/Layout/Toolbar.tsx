@@ -1,4 +1,5 @@
 import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MaterialToolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -46,6 +47,9 @@ function Toolbar({ onMenuClick }: ToolbarProps) {
         <Typography variant="h6" noWrap to="/" component={ToolbarLink}>
           FFX Helpers
         </Typography>
+        <Button color="inherit" component={Link} to="/login">
+          Login
+        </Button>
       </MaterialToolbar>
     </AppBar>
   );

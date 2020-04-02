@@ -1,7 +1,5 @@
 import React, { ReactChild, useState } from "react";
 
-import { SimpleAuthPanel } from "../../features/auth/SimpleAuthPanel";
-
 import Drawer from "./Drawer";
 import Toolbar from "./Toolbar";
 
@@ -28,10 +26,9 @@ function Layout({ children }: LayoutProps) {
     <div className={styles.root}>
       <Toolbar onMenuClick={handleDrawerToggle} />
       <Drawer mobileOpen={mobileOpen} onMenuClose={handleDrawerClose} />
-      <main className={styles.content}>
+      <main className={styles.main}>
         <div className={styles.toolbar} />
-        <SimpleAuthPanel />
-        {children}
+        <div className={styles.content}>{children}</div>
       </main>
     </div>
   );
