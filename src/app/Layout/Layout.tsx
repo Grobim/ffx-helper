@@ -1,5 +1,4 @@
 import React, { ReactChild, useState } from "react";
-import { useHistory } from "react-router-dom";
 
 import { SimpleAuthPanel } from "../../features/auth/SimpleAuthPanel";
 
@@ -13,7 +12,6 @@ interface LayoutProps {
 }
 
 function Layout({ children }: LayoutProps) {
-  const history = useHistory();
   const styles = useStyles();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -22,19 +20,14 @@ function Layout({ children }: LayoutProps) {
     setMobileOpen(!mobileOpen);
   }
 
-  function handleDrawerItemClick(path: string) {
-    history.push(path);
+  function handleDrawerClose() {
     setMobileOpen(false);
   }
 
   return (
     <div className={styles.root}>
       <Toolbar onMenuClick={handleDrawerToggle} />
-      <Drawer
-        mobileOpen={mobileOpen}
-        onMenuClose={handleDrawerToggle}
-        onMenuItemClick={handleDrawerItemClick}
-      />
+      <Drawer mobileOpen={mobileOpen} onMenuClose={handleDrawerClose} />
       <main className={styles.content}>
         <div className={styles.toolbar} />
         <SimpleAuthPanel />

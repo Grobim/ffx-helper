@@ -30,6 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    navItem: {
+      textTransform: "initial",
+    },
+    navToolbar: {
+      color: "inherit",
+      textDecoration: "none",
+    },
   })
 );
 
