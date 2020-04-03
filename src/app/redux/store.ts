@@ -47,6 +47,7 @@ const getReducerMap = () => ({
 const store = configureStore({
   reducer: getReducerMap(),
   middleware: getDefaultMiddleware({ thunk: { extraArgument: getFirebase } }),
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 if (process.env.NODE_ENV !== "production") {

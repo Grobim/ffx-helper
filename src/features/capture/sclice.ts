@@ -19,7 +19,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     addPending: ({ monsters }, { payload }) => {
-      const monster = monsters.find(({ name }) => name === payload);
+      const monster = monsters.find(({ key }) => key === payload);
 
       if (monster) {
         monster.pendingCaptureCount++;

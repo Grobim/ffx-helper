@@ -12,9 +12,12 @@ import { MappedMonster } from "../types";
 import { useStyles } from "./MonsterCard.styles";
 import { addPending } from "..";
 
-interface MonsterCardProps extends MappedMonster {}
+interface MonsterCardProps extends Omit<MappedMonster, "key"> {
+  monsterKey: MappedMonster["key"];
+}
 
 function MonsterCard({
+  monsterKey,
   name,
   location,
   imgUrl,
@@ -26,7 +29,7 @@ function MonsterCard({
   const styles = useStyles();
 
   function onPlusOneClick() {
-    dispatch(addPending(name));
+    dispatch(addPending(monsterKey));
   }
 
   return (
@@ -35,7 +38,7 @@ function MonsterCard({
         onClick={onPlusOneClick}
         disabled={capturedCount + pendingCaptureCount >= 10}
       >
-        <CardMedia className={styles.media} image={imgUrl} title={name} />
+        <CardMedia className={styles.media} image={imgUrl} title={monsterKey} />
         <CardContent>
           <Typography variant="h5" noWrap>
             {name}

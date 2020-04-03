@@ -1,15 +1,9 @@
-enum MonsterType {
-  BIRD = "BIRD",
-  FLAMBOS = "FLAMBOS",
-  WOLF = "WOLF",
-}
+import { MonsterType } from "./types";
 
 const monsterTypes: MonsterType[] = [
   MonsterType.BIRD,
   MonsterType.FLAMBOS,
   MonsterType.WOLF,
 ];
-
-export { MonsterType };
 
 export default monsterTypes;
