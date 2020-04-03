@@ -1,8 +1,13 @@
-import { Monster } from "../../models";
+import { Monster, MonsterKey } from "../../models";
 
 interface CaptureState {
   monsters: MappedMonster[];
+  pendingSave: CaptureMap;
 }
+
+type CaptureMap = {
+  [key in MonsterKey]?: number;
+};
 
 type Captured<T> = T & {
   capturedCount: number;
@@ -11,4 +16,4 @@ type Captured<T> = T & {
 
 type MappedMonster = Captured<Monster>;
 
-export type { Captured, CaptureState, MappedMonster };
+export type { Captured, CaptureMap, CaptureState, MappedMonster };

@@ -8,8 +8,8 @@ import { User } from "./types";
 const fetchUsers = createAsyncThunk<
   User[],
   void,
-  { extra: typeof getFirebase }
->("users/fetchUsers", async (_, { extra: getFirebase }) =>
+  { extra: { getFirebase: typeof getFirebase } }
+>("users/fetchUsers", async (_, { extra: { getFirebase } }) =>
   getFirebase()
     .firestore()
     .collection("users")

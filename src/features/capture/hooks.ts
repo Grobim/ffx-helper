@@ -1,13 +1,22 @@
 import { useSelector } from "react-redux";
+import { useFirestoreConnect } from "react-redux-firebase";
 
-import { selectAnyPending, selectMonsters } from "./selectors";
+import { useUserId } from "../auth";
 
-const useAnyPending = () => {
-  return useSelector(selectAnyPending);
+import { selectAnyPending, selectCapturedMonsters } from "./selectors";
+
+const useAnyPending = () => useSelector(selectAnyPending);
+
+const useUserCaptureMapConnect = () => {
+  const uid = useUserId();
+
+  useFirestoreConnect(`captures/${uid}`);
 };
 
-const useMonsters = () => {
-  return useSelector(selectMonsters);
+const useSyncedCapturedMonsters = () => {
+  useUserCaptureMapConnect();
+
+  return useSelector(selectCapturedMonsters);
 };
 
-export { useAnyPending, useMonsters };
+export { useAnyPending, useSyncedCapturedMonsters };

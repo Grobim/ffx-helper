@@ -1,13 +1,17 @@
-import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { useAnyPending, useMonsters } from "../hooks";
-
-import { resetPendings, savePendings } from "..";
 import MonsterCard from "../MonsterCard";
+
+import {
+  resetPendings,
+  triggerSaveCapture,
+  useAnyPending,
+  useSyncedCapturedMonsters,
+} from "..";
 
 import { useStyles } from "./CaptureDashboard.styles";
 
@@ -15,7 +19,7 @@ function CaptureDashboard() {
   const dispatch = useDispatch();
   const styles = useStyles();
 
-  const monsters = useMonsters();
+  const monsters = useSyncedCapturedMonsters();
   const hasAnyPending = useAnyPending();
 
   function reset() {
@@ -23,7 +27,7 @@ function CaptureDashboard() {
   }
 
   function save() {
-    dispatch(savePendings());
+    dispatch(triggerSaveCapture(monsters));
   }
 
   return (

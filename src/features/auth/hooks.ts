@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
-import { selectAuth, selectProfile } from "./selectors";
+import { selectAuth, selectProfile, selectUserId } from "./selectors";
 
 const useAuth = () => useSelector(selectAuth);
 
 const useProfile = () => useSelector(selectProfile);
 
-export { useAuth, useProfile };
+const useUserId = () => useSelector(selectUserId);
+
+export { useAuth, useProfile, useUserId };

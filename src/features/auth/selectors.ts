@@ -4,4 +4,6 @@ const selectProfile = (state: RootState) => state.firebase.profile;
 
 const selectAuth = (state: RootState) => state.firebase.auth;
 
-export { selectProfile, selectAuth };
+const selectUserId = (state: RootState) => selectAuth(state).uid;
+
+export { selectProfile, selectAuth, selectUserId };
