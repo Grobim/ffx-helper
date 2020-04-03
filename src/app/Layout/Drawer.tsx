@@ -70,7 +70,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
 
   return (
     <nav className={styles.drawer}>
-      <Hidden smUp>
+      <Hidden mdUp>
         <MaterialDrawer
           variant="temporary"
           open={mobileOpen}
@@ -85,7 +85,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
           {drawer}
         </MaterialDrawer>
       </Hidden>
-      <Hidden xsDown>
+      <Hidden smDown>
         <MaterialDrawer
           classes={{
             paper: styles.drawerPaper,

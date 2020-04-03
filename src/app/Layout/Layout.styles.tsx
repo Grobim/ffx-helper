@@ -1,15 +1,15 @@
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
 
 const getUseStyles = () =>
-  makeStyles((theme: Theme) =>
+  makeStyles((theme) =>
     createStyles({
       root: {
         display: "flex",
       },
       drawer: {
-        [theme.breakpoints.up("sm")]: {
+        [theme.breakpoints.up("md")]: {
           width: drawerWidth,
           flexShrink: 0,
         },
@@ -19,7 +19,7 @@ const getUseStyles = () =>
       },
       menuButton: {
         marginRight: theme.spacing(2),
-        [theme.breakpoints.up("sm")]: {
+        [theme.breakpoints.up("md")]: {
           display: "none",
         },
       },
