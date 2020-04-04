@@ -1,12 +1,12 @@
 import type { Location } from "./location";
-import type { MonsterType } from "./monsterType";
+import type { Species } from "./monsterType";
 import type { MonsterKey } from "./monsterKey";
 
 interface Monster {
   key: MonsterKey;
   name: string;
   location: Location;
-  type: MonsterType;
+  species: Species;
   imgUrl: string;
 }
 

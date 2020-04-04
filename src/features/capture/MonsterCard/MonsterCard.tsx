@@ -21,7 +21,7 @@ function MonsterCard({
   name,
   location,
   imgUrl,
-  type,
+  species,
   capturedCount,
   pendingCaptureCount,
 }: MonsterCardProps) {
@@ -46,7 +46,7 @@ function MonsterCard({
           <Typography variant="caption" color="textSecondary" component="p">
             {location}
             <br />
-            {type}
+            {species}
           </Typography>
           <Typography
             variant="body1"
