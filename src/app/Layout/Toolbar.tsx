@@ -7,7 +7,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import React, { MouseEventHandler, ReactChild } from "react";
 import { Link } from "react-router-dom";
 
-import { getUseStyles } from "./Layout.styles";
+import { useStyles } from "./Toolbar.styles";
 
 interface ToolbarProps {
   onMenuClick: MouseEventHandler;
@@ -18,8 +18,6 @@ interface ToolbarLinkProps extends Record<string, any> {
   children: ReactChild;
   className: string;
 }
-
-const useStyles = getUseStyles();
 
 function Toolbar({ onMenuClick }: ToolbarProps) {
   const styles = useStyles();

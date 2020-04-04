@@ -1,49 +1,30 @@
-import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
 
-const getUseStyles = () =>
-  makeStyles((theme) =>
-    createStyles({
-      root: {
-        display: "flex",
-      },
-      drawer: {
-        [theme.breakpoints.up("md")]: {
-          width: drawerWidth,
-          flexShrink: 0,
-        },
-      },
-      appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-      },
-      menuButton: {
-        marginRight: theme.spacing(2),
-        [theme.breakpoints.up("md")]: {
-          display: "none",
-        },
-      },
-      toolbar: theme.mixins.toolbar,
-      drawerPaper: {
-        width: drawerWidth,
-      },
-      main: {
-        flexGrow: 1,
-      },
-      content: {
-        padding: theme.spacing(3),
-      },
-      navItem: {
-        textTransform: "initial",
-      },
-      navToolbar: {
-        color: "inherit",
-        textDecoration: "none",
-        flexGrow: 1,
-      },
-    })
-  );
+const useStyles = makeStyles((theme) => ({
+  drawer: {
+    [theme.breakpoints.up("md")]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
+  root: {
+    display: "flex",
+  },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  main: {
+    flexGrow: 1,
+  },
+  content: {
+    padding: theme.spacing(3),
+  },
+  navItem: {
+    textTransform: "initial",
+  },
+}));
 
-const useStyles = getUseStyles();
-
-export { getUseStyles, useStyles };
+export { useStyles };
