@@ -9,7 +9,11 @@ import {
   selectAnyPending,
   selectFilteredCapturedMonsters,
   selectTextFilter,
+  selectLocationFilter,
+  selectSpeciesFilter,
   updateTextFilter,
+  updateLocationFilter,
+  updateSpeciesFilter,
 } from ".";
 
 const useAnyPending = () => useSelector(selectAnyPending);
@@ -29,4 +33,16 @@ const useSyncedCapturedMonsters = () => {
 const useTextFilter = () =>
   useSelectorAndActionCreator(selectTextFilter, updateTextFilter);
 
-export { useAnyPending, useSyncedCapturedMonsters, useTextFilter };
+const useLocationFilter = () =>
+  useSelectorAndActionCreator(selectLocationFilter, updateLocationFilter);
+
+const useSpeciesFilter = () =>
+  useSelectorAndActionCreator(selectSpeciesFilter, updateSpeciesFilter);
+
+export {
+  useAnyPending,
+  useSyncedCapturedMonsters,
+  useTextFilter,
+  useLocationFilter,
+  useSpeciesFilter,
+};

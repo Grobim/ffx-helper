@@ -81,6 +81,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
           ModalProps={{
             keepMounted: true,
           }}
+          role="navigation"
         >
           {drawer}
         </MaterialDrawer>

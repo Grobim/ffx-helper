@@ -1,20 +1,20 @@
-import { Monster, MonsterKey } from "../../models";
+import type { Monster, MonsterKey, Location, Species } from "../../models";
 
 interface CaptureState {
   monsters: MappedMonster[];
   pendingSave: CaptureMap;
   textFilter: string;
+  locationFilter?: Location;
+  speciesFilter?: Species;
 }
 
 type CaptureMap = {
   [key in MonsterKey]?: number;
 };
 
-type Captured<T> = T & {
+interface MappedMonster extends Monster {
   capturedCount: number;
   pendingCaptureCount: number;
-};
+}
 
-type MappedMonster = Captured<Monster>;
-
-export type { Captured, CaptureMap, CaptureState, MappedMonster };
+export type { CaptureMap, CaptureState, MappedMonster };

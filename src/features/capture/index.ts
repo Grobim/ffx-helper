@@ -1,9 +1,15 @@
-import { slice, triggerSaveCapture } from "./slice";
+import { slice } from "./slice";
 
+export * from "./actions";
 export * from "./hooks";
 export * from "./selectors";
 export * from "./types";
 
-export { triggerSaveCapture };
 export const { name, reducer } = slice;
-export const { addPending, resetPendings, updateTextFilter } = slice.actions;
+export const {
+  addPending,
+  resetPendings,
+  updateTextFilter,
+  updateLocationFilter,
+  updateSpeciesFilter,
+} = slice.actions;

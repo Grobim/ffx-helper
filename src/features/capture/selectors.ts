@@ -6,6 +6,8 @@ import { selectUserId } from "../auth";
 
 const selectMonsters = (state: RootState) => state.capture.monsters;
 const selectTextFilter = (state: RootState) => state.capture.textFilter;
+const selectLocationFilter = (state: RootState) => state.capture.locationFilter;
+const selectSpeciesFilter = (state: RootState) => state.capture.speciesFilter;
 
 const selectAnyPending = createSelector(
   [selectMonsters],
@@ -19,16 +21,18 @@ const selectUserCaptureMap = createSelector(
 );
 
 const selectFilteredMonsters = createSelector(
-  [selectMonsters, selectTextFilter],
-  (monsters, textFilter) =>
+  [selectMonsters, selectTextFilter, selectLocationFilter, selectSpeciesFilter],
+  (monsters, textFilter, locationFilter, speciesFilter) =>
     monsters.filter((monster) => {
       const lowercasedTextFilter = textFilter.toLowerCase();
 
       return (
-        monster.key.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
-        monster.name.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
-        monster.location.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
-        monster.species.toLowerCase().indexOf(lowercasedTextFilter) >= 0
+        (!locationFilter || monster.location === locationFilter) &&
+        (!speciesFilter || monster.species === speciesFilter) &&
+        (monster.key.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
+          monster.name.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
+          monster.location.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
+          monster.species.toLowerCase().indexOf(lowercasedTextFilter) >= 0)
       );
     })
 );
@@ -54,6 +58,8 @@ const selectFilteredCapturedMonsters = getCapturedMonstersSelector(
 export {
   selectMonsters,
   selectTextFilter,
+  selectLocationFilter,
+  selectSpeciesFilter,
   selectAnyPending,
   selectUserCaptureMap,
   selectCapturedMonsters,

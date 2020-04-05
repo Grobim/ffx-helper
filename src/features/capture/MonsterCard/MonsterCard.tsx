@@ -3,7 +3,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import classNames from "classnames";
+import clsx from "clsx";
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -50,7 +50,7 @@ function MonsterCard({
           </Typography>
           <Typography
             variant="body1"
-            className={classNames({
+            className={clsx({
               [styles.capturedLabelSuccess]: capturedCount >= 10,
             })}
           >
