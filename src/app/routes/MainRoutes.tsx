@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from "../../features/auth/Login";
 import CaptureDashboard from "../../features/capture/CaptureDashboard";
 import { Home } from "../../features/home/Home";
+import { Role } from "../../features/auth";
 import { UserList } from "../../features/users/UserList";
 
 import PrivateRoute from "./PrivateRoute";
@@ -14,7 +15,7 @@ function MainRoutes() {
       <Route exact path="/">
         <Home />
       </Route>
-      <PrivateRoute path="/users" role="Admin">
+      <PrivateRoute path="/users" role={Role.ADMIN}>
         <UserList />
       </PrivateRoute>
       <Route path="/login">

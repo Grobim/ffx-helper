@@ -1,3 +1,7 @@
+enum Role {
+  ADMIN = "Admin",
+}
+
 interface UserProfile {
   avatarUrl: string;
   displayName: string;
@@ -7,3 +11,4 @@ interface UserProfile {
 }
 
 export type { UserProfile };
+export { Role };

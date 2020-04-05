@@ -16,6 +16,8 @@ import React, {
 } from "react";
 import { Link } from "react-router-dom";
 
+import { useIsRole, Role } from "../../features/auth";
+
 import useStyles from "./Layout.styles";
 
 interface DrawerProps {
@@ -31,6 +33,8 @@ interface NavListItem extends Record<string, any> {
 
 function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
   const styles = useStyles();
+
+  const isAdmin = useIsRole(Role.ADMIN);
 
   function NavListItem(
     { children, className, ...props }: NavListItem,
@@ -59,12 +63,14 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
           </ListItemIcon>
           <ListItemText primary="Capture" />
         </ListItem>
-        <ListItem component={forwardRef(NavListItem)} to="/users">
-          <ListItemIcon>
-            <PeopleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Users" />
-        </ListItem>
+        {isAdmin && (
+          <ListItem component={forwardRef(NavListItem)} to="/users">
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Users" />
+          </ListItem>
+        )}
       </List>
     </div>
   );
