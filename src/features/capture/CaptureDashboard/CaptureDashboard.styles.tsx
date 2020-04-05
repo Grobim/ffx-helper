@@ -12,6 +12,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginLeft: theme.spacing(1),
   },
+  fab: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 }));
 
 export default useStyles;
