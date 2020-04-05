@@ -24,7 +24,7 @@ const useUserCaptureMapConnect = () => {
   useFirestoreConnect(`captures/${uid}`);
 };
 
-const useSyncedCapturedMonsters = () => {
+const useSyncedFilteredCapturedMonsters = () => {
   useUserCaptureMapConnect();
 
   return useSelector(selectFilteredCapturedMonsters);
@@ -41,7 +41,7 @@ const useSpeciesFilter = () =>
 
 export {
   useAnyPending,
-  useSyncedCapturedMonsters,
+  useSyncedFilteredCapturedMonsters,
   useTextFilter,
   useLocationFilter,
   useSpeciesFilter,

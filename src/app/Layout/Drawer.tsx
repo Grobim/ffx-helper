@@ -7,6 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PeopleIcon from "@material-ui/icons/People";
 import PetsIcon from "@material-ui/icons/Pets";
+import clsx from "clsx";
 import React, {
   ElementRef,
   forwardRef,
@@ -37,7 +38,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
   ) {
     return (
       <Button
-        className={`${className} ${styles.navItem}`}
+        className={clsx(className, styles.navItem)}
         component={Link}
         onClick={onMenuClose}
         ref={ref}
@@ -88,11 +89,12 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
       </Hidden>
       <Hidden smDown>
         <MaterialDrawer
+          open
           classes={{
             paper: styles.drawerPaper,
           }}
           variant="permanent"
-          open
+          role="navigation"
         >
           {drawer}
         </MaterialDrawer>

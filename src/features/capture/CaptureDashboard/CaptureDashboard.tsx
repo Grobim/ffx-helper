@@ -8,7 +8,7 @@ import {
   resetPendings,
   triggerSaveCapture,
   useAnyPending,
-  useSyncedCapturedMonsters,
+  useSyncedFilteredCapturedMonsters,
 } from "..";
 import MonsterCard from "../MonsterCard";
 import MonsterFilters from "../MonsterFilters";
@@ -19,7 +19,7 @@ function CaptureDashboard() {
   const dispatch = useDispatch();
   const styles = useStyles();
 
-  const monsters = useSyncedCapturedMonsters();
+  const monsters = useSyncedFilteredCapturedMonsters();
   const hasAnyPending = useAnyPending();
 
   function reset() {

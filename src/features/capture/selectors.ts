@@ -29,7 +29,8 @@ const selectFilteredMonsters = createSelector(
       return (
         (!locationFilter || monster.location === locationFilter) &&
         (!speciesFilter || monster.species === speciesFilter) &&
-        (monster.key.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
+        (!textFilter ||
+          monster.key.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
           monster.name.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
           monster.location.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
           monster.species.toLowerCase().indexOf(lowercasedTextFilter) >= 0)
@@ -37,22 +38,15 @@ const selectFilteredMonsters = createSelector(
     })
 );
 
-const getCapturedMonstersSelector = (monstersSelector: typeof selectMonsters) =>
-  createSelector(
-    [monstersSelector, selectUserCaptureMap],
-    (monsters, userCaptureMap) =>
-      userCaptureMap
-        ? monsters.map((monster) => ({
-            ...monster,
-            capturedCount: userCaptureMap[monster.key] || 0,
-          }))
-        : monsters
-  );
-
-const selectCapturedMonsters = getCapturedMonstersSelector(selectMonsters);
-
-const selectFilteredCapturedMonsters = getCapturedMonstersSelector(
-  selectFilteredMonsters
+const selectFilteredCapturedMonsters = createSelector(
+  [selectFilteredMonsters, selectUserCaptureMap],
+  (monsters, userCaptureMap) =>
+    userCaptureMap
+      ? monsters.map((monster) => ({
+          ...monster,
+          capturedCount: userCaptureMap[monster.key] || 0,
+        }))
+      : monsters
 );
 
 export {
@@ -62,6 +56,5 @@ export {
   selectSpeciesFilter,
   selectAnyPending,
   selectUserCaptureMap,
-  selectCapturedMonsters,
   selectFilteredCapturedMonsters,
 };
