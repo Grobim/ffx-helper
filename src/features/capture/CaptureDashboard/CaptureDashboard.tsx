@@ -4,16 +4,16 @@ import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import MonsterCard from "../MonsterCard";
-
 import {
   resetPendings,
   triggerSaveCapture,
   useAnyPending,
   useSyncedCapturedMonsters,
 } from "..";
+import MonsterCard from "../MonsterCard";
+import MonsterFilters from "../MonsterFilters";
 
-import { useStyles } from "./CaptureDashboard.styles";
+import useStyles from "./CaptureDashboard.styles";
 
 function CaptureDashboard() {
   const dispatch = useDispatch();
@@ -55,7 +55,10 @@ function CaptureDashboard() {
           Save Pendings
         </Button>
       </div>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
+        <Grid xs={12} item>
+          <MonsterFilters />
+        </Grid>
         {monsters.map(({ key, ...monster }) => (
           <Grid key={key} item xs={6} sm={4} lg={3}>
             <MonsterCard monsterKey={key} {...monster} />

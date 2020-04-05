@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 
 import { MappedMonster } from "../types";
 
-import { useStyles } from "./MonsterCard.styles";
+import useStyles from "./MonsterCard.styles";
 import { addPending } from "..";
 
 interface MonsterCardProps extends Omit<MappedMonster, "key"> {

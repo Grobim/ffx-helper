@@ -15,7 +15,7 @@ import React, {
 } from "react";
 import { Link } from "react-router-dom";
 
-import { useStyles } from "./Layout.styles";
+import useStyles from "./Layout.styles";
 
 interface DrawerProps {
   mobileOpen: boolean;

@@ -6,4 +6,4 @@ export * from "./types";
 
 export { triggerSaveCapture };
 export const { name, reducer } = slice;
-export const { addPending, resetPendings } = slice.actions;
+export const { addPending, resetPendings, updateTextFilter } = slice.actions;

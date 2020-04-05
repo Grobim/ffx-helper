@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-import { monsters } from "../../models";
+import { monsters, MonsterKey } from "../../models";
 
 import { CaptureState, MappedMonster } from "./types";
 import type { getFirebase } from "react-redux-firebase";
@@ -14,6 +14,7 @@ const mappedMonsters = monsters.map((monster) => ({
 const initialState: CaptureState = {
   monsters: mappedMonsters,
   pendingSave: {},
+  textFilter: "",
 };
 
 const triggerSaveCapture = createAsyncThunk<
@@ -56,7 +57,7 @@ const slice = createSlice({
   name: "capture",
   initialState,
   reducers: {
-    addPending: ({ monsters }, { payload }) => {
+    addPending: ({ monsters }, { payload }: PayloadAction<MonsterKey>) => {
       const monster = monsters.find(({ key }) => key === payload);
 
       if (monster) {
@@ -64,6 +65,9 @@ const slice = createSlice({
       }
     },
     resetPendings,
+    updateTextFilter: (state, { payload }: PayloadAction<string>) => {
+      state.textFilter = payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(triggerSaveCapture.pending, (state) => {

@@ -3,6 +3,7 @@ import { Monster, MonsterKey } from "../../models";
 interface CaptureState {
   monsters: MappedMonster[];
   pendingSave: CaptureMap;
+  textFilter: string;
 }
 
 type CaptureMap = {

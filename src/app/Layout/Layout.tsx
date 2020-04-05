@@ -3,7 +3,7 @@ import React, { ReactChild, useState } from "react";
 import Drawer from "./Drawer";
 import Toolbar from "./Toolbar";
 
-import { useStyles } from "./Layout.styles";
+import useStyles from "./Layout.styles";
 
 interface LayoutProps {
   children: ReactChild;

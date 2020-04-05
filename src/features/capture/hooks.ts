@@ -1,9 +1,16 @@
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
 
+import { useSelectorAndActionCreator } from "../../app/redux/hooks";
+
 import { useUserId } from "../auth";
 
-import { selectAnyPending, selectCapturedMonsters } from "./selectors";
+import {
+  selectAnyPending,
+  selectFilteredCapturedMonsters,
+  selectTextFilter,
+  updateTextFilter,
+} from ".";
 
 const useAnyPending = () => useSelector(selectAnyPending);
 
@@ -16,7 +23,10 @@ const useUserCaptureMapConnect = () => {
 const useSyncedCapturedMonsters = () => {
   useUserCaptureMapConnect();
 
-  return useSelector(selectCapturedMonsters);
+  return useSelector(selectFilteredCapturedMonsters);
 };
 
-export { useAnyPending, useSyncedCapturedMonsters };
+const useTextFilter = () =>
+  useSelectorAndActionCreator(selectTextFilter, updateTextFilter);
+
+export { useAnyPending, useSyncedCapturedMonsters, useTextFilter };

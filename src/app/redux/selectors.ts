@@ -20,4 +20,4 @@ function getSelectFirestoreDataOrOrdered(
   };
 }
 
-export { getSelectFirestoreDataOrOrdered };
+export { selectFireStore, getSelectFirestoreDataOrOrdered };

@@ -7,7 +7,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import React, { MouseEventHandler, ReactChild } from "react";
 import { Link } from "react-router-dom";
 
-import { useStyles } from "./Toolbar.styles";
+import useStyles from "./Toolbar.styles";
 
 interface ToolbarProps {
   onMenuClick: MouseEventHandler;
