@@ -3,6 +3,7 @@ interface UserProfile {
   displayName: string;
   email: string;
   providerData: Record<string, any>[];
+  role?: string;
 }
 
 export type { UserProfile };

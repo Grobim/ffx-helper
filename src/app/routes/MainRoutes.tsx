@@ -14,7 +14,7 @@ function MainRoutes() {
       <Route exact path="/">
         <Home />
       </Route>
-      <PrivateRoute path="/users">
+      <PrivateRoute path="/users" role="Admin">
         <UserList />
       </PrivateRoute>
       <Route path="/login">
