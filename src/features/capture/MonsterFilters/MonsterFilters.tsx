@@ -17,9 +17,11 @@ import type { MonsterKey, Species } from "../../../models";
 
 import {
   useCheckedAreaMonsters,
+  useCheckedSpeciesMonsters,
   useTextFilter,
   useSpeciesFilter,
   useAreaMonsterFilter,
+  useSpeciesMonsterFilter,
 } from "..";
 
 import useStyles from "./MonsterFilters.style";
@@ -28,22 +30,34 @@ function MonsterFilters() {
   const styles = useStyles();
 
   const checkedAreaMonsters = useCheckedAreaMonsters();
+  const checkedSpeciesMonsters = useCheckedSpeciesMonsters();
 
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const [textFilter, setTextFilter] = useTextFilter();
   const [speciesFilter, setSpeciesFilter] = useSpeciesFilter();
   const [areaMonsterFilter, setAreaMonsterFilter] = useAreaMonsterFilter();
+  const [
+    speciesMonsterFilter,
+    setSpeciesMonsterFilter,
+  ] = useSpeciesMonsterFilter();
 
   const selectedAreaMonster = checkedAreaMonsters.find(
     (checkedMonster) => checkedMonster.key === areaMonsterFilter
   );
+  const selectedSpeciesMonster = checkedSpeciesMonsters.find(
+    (checkedMonster) => checkedMonster.key === speciesMonsterFilter
+  );
 
   const isSelectedAreaMonsterUnlocked =
     selectedAreaMonster && selectedAreaMonster.isUnlocked;
+  const isSelectedSpeciesMonsterUnlocked =
+    selectedSpeciesMonster && selectedSpeciesMonster.isUnlocked;
 
   const hasAdditionnalFilter =
-    Boolean(speciesFilter) || Boolean(areaMonsterFilter);
+    Boolean(speciesFilter) ||
+    Boolean(areaMonsterFilter) ||
+    Boolean(speciesMonsterFilter);
 
   function handleSearchInputChange(event: ChangeEvent<HTMLInputElement>) {
     setTextFilter(event.target.value);
@@ -63,6 +77,12 @@ function MonsterFilters() {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     setAreaMonsterFilter(event.target.value as MonsterKey);
+  }
+
+  function handleSpeciesMonsterChange(
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    setSpeciesMonsterFilter(event.target.value as MonsterKey);
   }
 
   return (
@@ -111,6 +131,37 @@ function MonsterFilters() {
                 &nbsp;
               </MenuItem>
               {checkedAreaMonsters.map((monster) => (
+                <MenuItem
+                  key={monster.key}
+                  value={monster.key}
+                  className={clsx({
+                    [styles.selectItemSuccess]: monster.isUnlocked,
+                  })}
+                >
+                  {monster.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6} md={5} lg={4}>
+            <TextField
+              id="speciesMonsterSelect"
+              select
+              fullWidth
+              value={speciesMonsterFilter || ""}
+              onChange={handleSpeciesMonsterChange}
+              label="Species Monster"
+              variant="outlined"
+              InputProps={{
+                className: clsx({
+                  [styles.selectItemSuccess]: isSelectedSpeciesMonsterUnlocked,
+                }),
+              }}
+            >
+              <MenuItem key="" value="">
+                &nbsp;
+              </MenuItem>
+              {checkedSpeciesMonsters.map((monster) => (
                 <MenuItem
                   key={monster.key}
                   value={monster.key}

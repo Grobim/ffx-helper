@@ -1,6 +1,6 @@
-import type { Location } from "./location";
-import type { Species } from "./monsterType";
-import type { MonsterKey } from "./monsterKey";
+import type { Location } from "./Location";
+import type { Species } from "./Species";
+import type { MonsterKey } from "./MonsterKey";
 
 interface Monster {
   key: MonsterKey;
@@ -14,7 +14,6 @@ interface AreaSpecialMonster extends Omit<Monster, "location"> {}
 
 interface SpeciesSpecialMonster extends Omit<Monster, "location"> {
   requiredCaptures: number;
-  targetSpecies: Species;
 }
 
 export type { Monster, AreaSpecialMonster, SpeciesSpecialMonster };

@@ -12,16 +12,21 @@ import {
   selectLocationFilter,
   selectSpeciesFilter,
   selectAreaMonsterFilter,
+  selectSpeciesMonsterFilter,
   selectCheckedAreaSpecialMonsters,
+  selectCheckedSpeciesSpecialMonsters,
   updateTextFilter,
   updateLocationFilter,
   updateSpeciesFilter,
   updateAreaMonsterFilter,
+  updateSpeciesMonsterFilter,
 } from ".";
 
 const useAnyPending = () => useSelector(selectAnyPending);
 const useCheckedAreaMonsters = () =>
   useSelector(selectCheckedAreaSpecialMonsters);
+const useCheckedSpeciesMonsters = () =>
+  useSelector(selectCheckedSpeciesSpecialMonsters);
 
 const useUserCaptureMapConnect = () => {
   const uid = useUserId();
@@ -47,12 +52,20 @@ const useSpeciesFilter = () =>
 const useAreaMonsterFilter = () =>
   useSelectorAndActionCreator(selectAreaMonsterFilter, updateAreaMonsterFilter);
 
+const useSpeciesMonsterFilter = () =>
+  useSelectorAndActionCreator(
+    selectSpeciesMonsterFilter,
+    updateSpeciesMonsterFilter
+  );
+
 export {
   useAnyPending,
   useCheckedAreaMonsters,
+  useCheckedSpeciesMonsters,
   useSyncedFilteredCapturedMonsters,
   useTextFilter,
   useLocationFilter,
   useSpeciesFilter,
   useAreaMonsterFilter,
+  useSpeciesMonsterFilter,
 };

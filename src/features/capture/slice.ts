@@ -1,8 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import groupBy from "lodash/groupBy";
 
-import { areaSpecialMonsters, monsters } from "../../models";
-import type { MonsterKey, Location, Species } from "../../models";
+import {
+  areaSpecialMonsters,
+  monsters,
+  speciesSpecialMonsters,
+} from "../../models";
+import type {
+  MonsterKey,
+  Location,
+  Species,
+  SpecialSpecies,
+} from "../../models";
 
 import { triggerSaveCapture } from "./actions";
 import type { CaptureState } from "./types";
@@ -22,9 +31,19 @@ const mappedAreaSpecialMonsters = Object.keys(areaSpecialMonsters).map(
   })
 );
 
+const monstersBySpecies = groupBy(monsters, "species");
+const mappedSpeciesSpecialMonsters = Object.keys(speciesSpecialMonsters).map(
+  (species) => ({
+    ...speciesSpecialMonsters[species as SpecialSpecies],
+    monsterList: monstersBySpecies[species].map((monster) => monster.key),
+    targetSpecies: species as SpecialSpecies,
+  })
+);
+
 const initialState: CaptureState = {
   monsters: mappedMonsters,
   areaSpecialMonsters: mappedAreaSpecialMonsters,
+  speciesSpecialMonsters: mappedSpeciesSpecialMonsters,
   pendingCaptureSaves: {},
   textFilter: "",
 };
@@ -59,6 +78,12 @@ const slice = createSlice({
       { payload }: PayloadAction<MonsterKey>
     ) => {
       state.areaMonsterFilter = payload;
+    },
+    updateSpeciesMonsterFilter: (
+      state,
+      { payload }: PayloadAction<MonsterKey>
+    ) => {
+      state.speciesMonsterFilter = payload;
     },
   },
   extraReducers: (builder) => {

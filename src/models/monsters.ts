@@ -104,9 +104,9 @@ import yowieUrl from "../assets/images/monsters/yowie.jpg";
 import zaurusUrl from "../assets/images/monsters/zaurus.jpg";
 import zuUrl from "../assets/images/monsters/zu.jpg";
 
-import { Location, MonsterKey, Species } from "./types";
+import { Location, MonsterKey, Species, SpeciesSpecialMonster } from "./types";
 
-import type { AreaSpecialMonster, Monster } from "./types";
+import type { AreaSpecialMonster, Monster, SpecialSpecies } from "./types";
 
 const areaSpecialMonsters: Record<Location, AreaSpecialMonster> = {
   [Location.BESAID]: {
@@ -186,6 +186,107 @@ const areaSpecialMonsters: Record<Location, AreaSpecialMonster> = {
     name: "Vorban",
     species: Species.ARMOR,
     imgUrl: barbatosUrl,
+  },
+};
+
+const speciesSpecialMonsters: Record<SpecialSpecies, SpeciesSpecialMonster> = {
+  [Species.LUPINE]: {
+    key: MonsterKey.FENRIR,
+    name: "Fenril",
+    species: Species.LUPINE,
+    requiredCaptures: 3,
+    imgUrl: bandersnatchUrl,
+  },
+  [Species.REPTILE]: {
+    key: MonsterKey.ORNITHOLESTES,
+    name: "Ornitholestes",
+    species: Species.REPTILE,
+    requiredCaptures: 3,
+    imgUrl: yowieUrl,
+  },
+  [Species.BIRD]: {
+    key: MonsterKey.PTERYX,
+    name: "Pterix",
+    species: Species.BIRD,
+    requiredCaptures: 4,
+    imgUrl: simurghUrl,
+  },
+  [Species.WASP]: {
+    key: MonsterKey.HORNET,
+    name: "Frelon",
+    species: Species.WASP,
+    requiredCaptures: 4,
+    imgUrl: waspUrl,
+  },
+  [Species.IMP]: {
+    key: MonsterKey.VIDATU,
+    name: "Wizarsha",
+    species: Species.IMP,
+    requiredCaptures: 4,
+    imgUrl: impUrl,
+  },
+  [Species.EVIL_EYE]: {
+    key: MonsterKey.ONE_EYE,
+    name: "Lieo Nukan",
+    species: Species.EVIL_EYE,
+    requiredCaptures: 4,
+    imgUrl: evilEyeUrl,
+  },
+  [Species.FLAN]: {
+    key: MonsterKey.JUMBO_FLAN,
+    name: "Jumbo Flambos",
+    species: Species.FLAN,
+    requiredCaptures: 3,
+    imgUrl: darkFlanUrl,
+  },
+  [Species.ELEMENTAL]: {
+    key: MonsterKey.NAGA_ELEMENTAL,
+    name: "Naga Élémentaire",
+    species: Species.ELEMENTAL,
+    requiredCaptures: 3,
+    imgUrl: darkElementUrl,
+  },
+  [Species.HELM]: {
+    key: MonsterKey.TANKET,
+    name: "Tankujo",
+    species: Species.HELM,
+    requiredCaptures: 3,
+    imgUrl: murussuUrl,
+  },
+  [Species.DRAKE]: {
+    key: MonsterKey.FAFNIR,
+    name: "Fafnir",
+    species: Species.DRAKE,
+    requiredCaptures: 4,
+    imgUrl: nidhoggUrl,
+  },
+  [Species.FUNGUS]: {
+    key: MonsterKey.SLEEP_SPROUT,
+    name: "Soporichamp",
+    species: Species.FUNGUS,
+    requiredCaptures: 5,
+    imgUrl: exorayUrl,
+  },
+  [Species.BOMB]: {
+    key: MonsterKey.BOMB_KING,
+    name: "Atomico",
+    species: Species.BOMB,
+    requiredCaptures: 5,
+    imgUrl: bombUrl,
+  },
+  [Species.RUMINANT]: {
+    key: MonsterKey.JUGGERNAUT,
+    name: "Juggernauth",
+    species: Species.RUMINANT,
+    requiredCaptures: 5,
+    imgUrl: grendelUrl,
+  },
+  [Species.IRON_GIANT]: {
+    key: MonsterKey.IRONCLAD,
+    name: "Titan d'Acier",
+    species: Species.IRON_GIANT,
+    requiredCaptures: 5,
+    imgUrl: ironGiantUrl,
   },
 };
 
@@ -475,7 +576,7 @@ const monsters: Monster[] = [
     name: "Gemini (sword)",
     location: Location.INSIDE_SIN,
     species: Species.IRON_GIANT,
-    imgUrl: geminiUrl,
+    imgUrl: ironGiantUrl,
   },
   {
     key: MonsterKey.GHOST,
@@ -859,7 +960,7 @@ const monsters: Monster[] = [
     key: MonsterKey.WHITE_ELEMENT,
     name: "Élémentaire blanc",
     location: Location.MI_IHEN_HIGHROAD,
-    species: Species.FLAN,
+    species: Species.ELEMENTAL,
     imgUrl: whiteElementUrl,
   },
   {
@@ -906,4 +1007,4 @@ const monsters: Monster[] = [
   },
 ];
 
-export { areaSpecialMonsters, monsters };
+export { areaSpecialMonsters, speciesSpecialMonsters, monsters };

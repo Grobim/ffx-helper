@@ -13,4 +13,5 @@ export const {
   updateLocationFilter,
   updateSpeciesFilter,
   updateAreaMonsterFilter,
+  updateSpeciesMonsterFilter,
 } = slice.actions;

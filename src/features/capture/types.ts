@@ -3,17 +3,21 @@ import type {
   Location,
   Monster,
   MonsterKey,
+  SpecialSpecies,
   Species,
+  SpeciesSpecialMonster,
 } from "../../models";
 
 interface CaptureState {
   monsters: MappedMonster[];
-  areaSpecialMonsters: (MappedAreaSpecialMonster & { location: Location })[];
+  areaSpecialMonsters: MappedAreaSpecialMonster[];
+  speciesSpecialMonsters: MappedSpeciesSpecialMonster[];
   pendingCaptureSaves: CaptureMap;
   textFilter: string;
   locationFilter?: Location;
   speciesFilter?: Species;
   areaMonsterFilter?: MonsterKey;
+  speciesMonsterFilter?: MonsterKey;
 }
 
 type CaptureMap = {
@@ -27,6 +31,12 @@ interface MappedMonster extends Monster {
 
 interface MappedAreaSpecialMonster extends AreaSpecialMonster {
   monsterList: MonsterKey[];
+  location: Location;
+}
+
+interface MappedSpeciesSpecialMonster extends SpeciesSpecialMonster {
+  monsterList: MonsterKey[];
+  targetSpecies: SpecialSpecies;
 }
 
 export type {

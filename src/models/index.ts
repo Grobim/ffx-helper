@@ -1,14 +1,8 @@
-import {
-  AreaSpecialMonster,
-  Location,
-  Monster,
-  MonsterKey,
-  Species,
-} from "./types";
+import { Location, Species } from "./types";
 
 const locations = Object.keys(Location);
 const speciesList = Object.keys(Species);
 
-export type { Monster, Location, MonsterKey, Species, AreaSpecialMonster };
-export { areaSpecialMonsters, monsters } from "./monsters";
+export * from "./types";
+export * from "./monsters";
 export { locations, speciesList };
