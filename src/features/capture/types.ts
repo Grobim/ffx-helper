@@ -2,7 +2,7 @@ import type { Monster, MonsterKey, Location, Species } from "../../models";
 
 interface CaptureState {
   monsters: MappedMonster[];
-  pendingSave: CaptureMap;
+  pendingCaptureSaves: CaptureMap;
   textFilter: string;
   locationFilter?: Location;
   speciesFilter?: Species;

@@ -1,6 +1,7 @@
 // TODO
 // Floating death pic
 
+import abyssalWormUrl from "../assets/images/monsters/abyssalWorm.jpg";
 import achelousUrl from "../assets/images/monsters/achelous.jpg";
 import adamantoiseUrl from "../assets/images/monsters/adamantoise.png";
 import aerogueUrl from "../assets/images/monsters/aerogue.jpg";
@@ -60,6 +61,7 @@ import macheaUrl from "../assets/images/monsters/machea.jpg";
 import maelspikeUrl from "../assets/images/monsters/maelspike.jpg";
 import mafdetUrl from "../assets/images/monsters/mafdet.jpg";
 import malboroUrl from "../assets/images/monsters/malboro.png";
+import malboroMenaceUrl from "../assets/images/monsters/malboroMenace.png";
 import mandragoraUrl from "../assets/images/monsters/mandragora.png";
 import masterCoeurlUrl from "../assets/images/monsters/masterCoeurl.jpg";
 import masterTonberryUrl from "../assets/images/monsters/masterTonberry.jpg";
@@ -102,7 +104,90 @@ import yowieUrl from "../assets/images/monsters/yowie.jpg";
 import zaurusUrl from "../assets/images/monsters/zaurus.jpg";
 import zuUrl from "../assets/images/monsters/zu.jpg";
 
-import { Location, Monster, MonsterKey, Species } from "./types";
+import { Location, MonsterKey, Species } from "./types";
+
+import type { AreaSpecialMonster, Monster } from "./types";
+
+const areaSpecialMonsters: Record<Location, AreaSpecialMonster> = {
+  [Location.BESAID]: {
+    key: MonsterKey.STRATOAVIS,
+    name: "Stratoeibis",
+    species: Species.ROC,
+    imgUrl: zuUrl,
+  },
+  [Location.KILIKA]: {
+    key: MonsterKey.MALBORO_MENACE,
+    name: "Mega Morbol",
+    species: Species.MALBORO,
+    imgUrl: malboroMenaceUrl,
+  },
+  [Location.MI_IHEN_HIGHROAD]: {
+    key: MonsterKey.KOTTOS,
+    name: "Toki",
+    species: Species.OGRE,
+    imgUrl: bashuraUrl,
+  },
+  [Location.MUSHROOM_ROCK_ROAD]: {
+    key: MonsterKey.COEURLREGINA,
+    name: "Méga couguar",
+    species: Species.COEURL,
+    imgUrl: masterCoeurlUrl,
+  },
+  [Location.DJOSE_ROAD]: {
+    key: MonsterKey.JORMUNGAND,
+    name: "Jormungand",
+    species: Species.BASILISK,
+    imgUrl: anacondaurUrl,
+  },
+  [Location.THUNDER_PLAINS]: {
+    key: MonsterKey.CACTUAR_KING,
+    name: "Pampi",
+    species: Species.CACTUAR,
+    imgUrl: qactuarUrl,
+  },
+  [Location.MACALANIA]: {
+    key: MonsterKey.ESPADA,
+    name: "Espada",
+    species: Species.BLADE,
+    imgUrl: epaajUrl,
+  },
+  [Location.BIKANEL]: {
+    key: MonsterKey.ABYSS_WORM,
+    name: "Ver abyssal",
+    species: Species.BLADE,
+    imgUrl: abyssalWormUrl,
+  },
+  [Location.CALM_LANDS]: {
+    key: MonsterKey.CHIMERAGEIST,
+    name: "Mega Chimaira",
+    species: Species.CHIMERA,
+    imgUrl: chimeraBrainUrl,
+  },
+  [Location.STOLEN_FAYTH_CAVERN]: {
+    key: MonsterKey.DON_TONBERRY,
+    name: "Don Tomberry",
+    species: Species.TONBERRY,
+    imgUrl: tonberryUrl,
+  },
+  [Location.MONT_GAGAZET]: {
+    key: MonsterKey.CATOBLEPAS,
+    name: "Catoblepas",
+    species: Species.BEHEMOTH,
+    imgUrl: behemothUrl,
+  },
+  [Location.INSIDE_SIN]: {
+    key: MonsterKey.ABADDON,
+    name: "Abadon",
+    species: Species.SPELLSPINNER,
+    imgUrl: varunaUrl,
+  },
+  [Location.OMEGA_DUNGEON]: {
+    key: MonsterKey.VORBAN,
+    name: "Vorban",
+    species: Species.ARMOR,
+    imgUrl: barbatosUrl,
+  },
+};
 
 const monsters: Monster[] = [
   {
@@ -821,4 +906,4 @@ const monsters: Monster[] = [
   },
 ];
 
-export default monsters;
+export { areaSpecialMonsters, monsters };

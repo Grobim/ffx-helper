@@ -6,6 +6,9 @@ import Zoom from "@material-ui/core/Zoom";
 import SaveIcon from "@material-ui/icons/Save";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { isEmpty } from "react-redux-firebase";
+
+import { useAuth } from "../../auth";
 
 import {
   resetPendings,
@@ -21,6 +24,8 @@ import useStyles from "./CaptureDashboard.styles";
 function CaptureDashboard() {
   const dispatch = useDispatch();
   const styles = useStyles();
+
+  const auth = useAuth();
 
   const monsters = useSyncedFilteredCapturedMonsters();
   const hasAnyPending = useAnyPending();
@@ -59,7 +64,7 @@ function CaptureDashboard() {
           </Grid>
         ))}
       </Grid>
-      <Zoom in={hasAnyPending}>
+      <Zoom in={hasAnyPending && !isEmpty(auth)}>
         <Fab className={styles.fab} color="primary" onClick={save}>
           <SaveIcon />
         </Fab>

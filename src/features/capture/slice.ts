@@ -14,7 +14,7 @@ const mappedMonsters = monsters.map((monster) => ({
 
 const initialState: CaptureState = {
   monsters: mappedMonsters,
-  pendingSave: {},
+  pendingCaptureSaves: {},
   textFilter: "",
 };
 
@@ -48,7 +48,7 @@ const slice = createSlice({
     builder.addCase(triggerSaveCapture.pending, (state) => {
       const { monsters } = state;
 
-      state.pendingSave = monsters
+      state.pendingCaptureSaves = monsters
         .filter((monster) => monster.pendingCaptureCount)
         .reduce(
           (prev, { key, pendingCaptureCount }) => ({
@@ -62,19 +62,19 @@ const slice = createSlice({
     });
 
     builder.addCase(triggerSaveCapture.fulfilled, (state) => {
-      state.pendingSave = {};
+      state.pendingCaptureSaves = {};
     });
 
     builder.addCase(
       triggerSaveCapture.rejected,
-      ({ monsters, pendingSave }) => {
+      ({ monsters, pendingCaptureSaves }) => {
         monsters.forEach((monster) => {
-          const monsterPendings = pendingSave[monster.key];
+          const monsterPendings = pendingCaptureSaves[monster.key];
 
           if (monsterPendings) {
             monster.pendingCaptureCount = monsterPendings;
 
-            delete pendingSave[monster.key];
+            delete pendingCaptureSaves[monster.key];
           }
         });
       }

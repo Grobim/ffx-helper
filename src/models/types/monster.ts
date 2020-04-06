@@ -10,4 +10,11 @@ interface Monster {
   imgUrl: string;
 }
 
-export type { Monster };
+interface AreaSpecialMonster extends Omit<Monster, "location"> {}
+
+interface SpeciesSpecialMonster extends Omit<Monster, "location"> {
+  requiredCaptures: number;
+  targetSpecies: Species;
+}
+
+export type { Monster, AreaSpecialMonster, SpeciesSpecialMonster };

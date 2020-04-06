@@ -50,16 +50,19 @@ function MonsterCard({
           </Typography>
           <Typography
             variant="body1"
-            className={clsx({
+            className={clsx(styles.capturedLabel, {
               [styles.capturedLabelSuccess]: capturedCount >= 10,
             })}
+            component="div"
           >
             Captured:&nbsp;{capturedCount}
             {pendingCaptureCount > 0 && (
-              <span className={styles.pendingLabel}>
-                {" "}
-                (Pending:&nbsp;{pendingCaptureCount})
-              </span>
+              <>
+                <div className={styles.capturedLabelSeparator} />
+                <span className={styles.pendingLabel}>
+                  (Pending:&nbsp;{pendingCaptureCount})
+                </span>
+              </>
             )}
           </Typography>
         </CardContent>
