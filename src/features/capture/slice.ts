@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import groupBy from "lodash/groupBy";
 
-import { monsters } from "../../models";
+import { areaSpecialMonsters, monsters } from "../../models";
 import type { MonsterKey, Location, Species } from "../../models";
 
 import { triggerSaveCapture } from "./actions";
@@ -12,8 +13,18 @@ const mappedMonsters = monsters.map((monster) => ({
   pendingCaptureCount: 0,
 }));
 
+const monstersByLocation = groupBy(monsters, "location");
+const mappedAreaSpecialMonsters = Object.keys(areaSpecialMonsters).map(
+  (location) => ({
+    ...areaSpecialMonsters[location as Location],
+    location: location as Location,
+    monsterList: monstersByLocation[location].map((monster) => monster.key),
+  })
+);
+
 const initialState: CaptureState = {
   monsters: mappedMonsters,
+  areaSpecialMonsters: mappedAreaSpecialMonsters,
   pendingCaptureSaves: {},
   textFilter: "",
 };
@@ -42,6 +53,12 @@ const slice = createSlice({
     },
     updateSpeciesFilter: (state, { payload }: PayloadAction<Species>) => {
       state.speciesFilter = payload;
+    },
+    updateAreaMonsterFilter: (
+      state,
+      { payload }: PayloadAction<MonsterKey>
+    ) => {
+      state.areaMonsterFilter = payload;
     },
   },
   extraReducers: (builder) => {

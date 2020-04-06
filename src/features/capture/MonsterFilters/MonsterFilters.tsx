@@ -1,3 +1,6 @@
+import React, { ChangeEvent, useState } from "react";
+import clsx from "clsx";
+
 import Collapse from "@material-ui/core/Collapse";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
@@ -8,26 +11,39 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import SearchIcon from "@material-ui/icons/Search";
-import clsx from "clsx";
-import React, { ChangeEvent, useState } from "react";
 
-import { locations, speciesList } from "../../../models";
-import type { Location, Species } from "../../../models";
+import { speciesList } from "../../../models";
+import type { MonsterKey, Species } from "../../../models";
 
-import { useTextFilter, useLocationFilter, useSpeciesFilter } from "..";
+import {
+  useCheckedAreaMonsters,
+  useTextFilter,
+  useSpeciesFilter,
+  useAreaMonsterFilter,
+} from "..";
 
 import useStyles from "./MonsterFilters.style";
 
 function MonsterFilters() {
   const styles = useStyles();
 
-  const [isExpanded, setIsExpanded] = useState(false);
+  const checkedAreaMonsters = useCheckedAreaMonsters();
+
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const [textFilter, setTextFilter] = useTextFilter();
-  const [locationFilter, setLocationFilter] = useLocationFilter();
   const [speciesFilter, setSpeciesFilter] = useSpeciesFilter();
+  const [areaMonsterFilter, setAreaMonsterFilter] = useAreaMonsterFilter();
 
-  const hasFilter = Boolean(locationFilter) || Boolean(speciesFilter);
+  const selectedAreaMonster = checkedAreaMonsters.find(
+    (checkedMonster) => checkedMonster.key === areaMonsterFilter
+  );
+
+  const isSelectedAreaMonsterUnlocked =
+    selectedAreaMonster && selectedAreaMonster.isUnlocked;
+
+  const hasAdditionnalFilter =
+    Boolean(speciesFilter) || Boolean(areaMonsterFilter);
 
   function handleSearchInputChange(event: ChangeEvent<HTMLInputElement>) {
     setTextFilter(event.target.value);
@@ -37,16 +53,16 @@ function MonsterFilters() {
     setIsExpanded(!isExpanded);
   }
 
-  function handleLocationChange(
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    setLocationFilter(event.target.value as Location);
-  }
-
   function handleSpeciesChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     setSpeciesFilter(event.target.value as Species);
+  }
+
+  function handleAreaMonsterChange(
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    setAreaMonsterFilter(event.target.value as MonsterKey);
   }
 
   return (
@@ -61,7 +77,9 @@ function MonsterFilters() {
         />
         <Divider className={styles.divider} orientation="vertical" />
         <IconButton
-          className={clsx(styles.expand, { [styles.hasFilter]: hasFilter })}
+          className={clsx(styles.expand, {
+            [styles.hasFilter]: hasAdditionnalFilter,
+          })}
           onClick={handleExpandClick}
         >
           <FilterListIcon />
@@ -76,27 +94,38 @@ function MonsterFilters() {
         >
           <Grid item xs={12} sm={6} md={5} lg={4}>
             <TextField
-              id="locationSelect"
+              id="areaMonsterSelect"
               select
               fullWidth
-              value={locationFilter || ""}
-              onChange={handleLocationChange}
-              label="Monster Arena"
+              value={areaMonsterFilter || ""}
+              onChange={handleAreaMonsterChange}
+              label="Area Monster"
               variant="outlined"
+              InputProps={{
+                className: clsx({
+                  [styles.selectItemSuccess]: isSelectedAreaMonsterUnlocked,
+                }),
+              }}
             >
               <MenuItem key="" value="">
                 &nbsp;
               </MenuItem>
-              {locations.map((location) => (
-                <MenuItem key={location} value={location}>
-                  {location}
+              {checkedAreaMonsters.map((monster) => (
+                <MenuItem
+                  key={monster.key}
+                  value={monster.key}
+                  className={clsx({
+                    [styles.selectItemSuccess]: monster.isUnlocked,
+                  })}
+                >
+                  {monster.name}
                 </MenuItem>
               ))}
             </TextField>
           </Grid>
           <Grid item xs={12} sm={6} md={5} lg={4}>
             <TextField
-              id="locationSelect"
+              id="speciesSelect"
               select
               fullWidth
               value={speciesFilter || ""}

@@ -5,6 +5,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     boxSizing: "initial",
   },
+  selectItemSuccess: {
+    color: theme.palette.success.main,
+  },
   searchBar: {
     display: "flex",
     alignItems: "center",

@@ -11,12 +11,17 @@ import {
   selectTextFilter,
   selectLocationFilter,
   selectSpeciesFilter,
+  selectAreaMonsterFilter,
+  selectCheckedAreaSpecialMonsters,
   updateTextFilter,
   updateLocationFilter,
   updateSpeciesFilter,
+  updateAreaMonsterFilter,
 } from ".";
 
 const useAnyPending = () => useSelector(selectAnyPending);
+const useCheckedAreaMonsters = () =>
+  useSelector(selectCheckedAreaSpecialMonsters);
 
 const useUserCaptureMapConnect = () => {
   const uid = useUserId();
@@ -39,10 +44,15 @@ const useLocationFilter = () =>
 const useSpeciesFilter = () =>
   useSelectorAndActionCreator(selectSpeciesFilter, updateSpeciesFilter);
 
+const useAreaMonsterFilter = () =>
+  useSelectorAndActionCreator(selectAreaMonsterFilter, updateAreaMonsterFilter);
+
 export {
   useAnyPending,
+  useCheckedAreaMonsters,
   useSyncedFilteredCapturedMonsters,
   useTextFilter,
   useLocationFilter,
   useSpeciesFilter,
+  useAreaMonsterFilter,
 };

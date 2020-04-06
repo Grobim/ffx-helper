@@ -6,14 +6,15 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 1, 0),
     backgroundSize: "contain",
   },
-  capturedLabel: {
+  label: {
     display: "flex",
+    flexWrap: "wrap",
+  },
+  labelSeparator: {
+    flex: 1,
   },
   capturedLabelSuccess: {
     color: theme.palette.success.main,
-  },
-  capturedLabelSeparator: {
-    flex: 1,
   },
   pendingLabel: {
     color: theme.palette.warning.main,

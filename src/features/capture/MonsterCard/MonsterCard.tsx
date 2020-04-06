@@ -7,10 +7,10 @@ import clsx from "clsx";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { MappedMonster } from "../types";
+import type { MappedMonster } from "..";
+import { addPending } from "..";
 
 import useStyles from "./MonsterCard.styles";
-import { addPending } from "..";
 
 interface MonsterCardProps extends Omit<MappedMonster, "key"> {
   monsterKey: MappedMonster["key"];
@@ -40,25 +40,31 @@ function MonsterCard({
       >
         <CardMedia className={styles.media} image={imgUrl} title={monsterKey} />
         <CardContent>
-          <Typography variant="h5" noWrap>
+          <Typography variant="h5" noWrap gutterBottom>
             {name}
           </Typography>
-          <Typography variant="caption" color="textSecondary" component="p">
-            {location}
-            <br />
-            {species}
-          </Typography>
           <Typography
-            variant="body1"
-            className={clsx(styles.capturedLabel, {
-              [styles.capturedLabelSuccess]: capturedCount >= 10,
-            })}
+            variant="caption"
+            color="textSecondary"
             component="div"
+            className={styles.label}
+            gutterBottom
           >
-            Captured:&nbsp;{capturedCount}
+            <span>{location}</span>
+            <div className={styles.labelSeparator} />
+            <span>{species}</span>
+          </Typography>
+          <Typography variant="body1" className={styles.label} component="div">
+            <span
+              className={clsx({
+                [styles.capturedLabelSuccess]: capturedCount >= 10,
+              })}
+            >
+              Captured:&nbsp;{capturedCount}
+            </span>
             {pendingCaptureCount > 0 && (
               <>
-                <div className={styles.capturedLabelSeparator} />
+                <div className={styles.labelSeparator} />
                 <span className={styles.pendingLabel}>
                   (Pending:&nbsp;{pendingCaptureCount})
                 </span>
