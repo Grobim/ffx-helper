@@ -14,7 +14,7 @@ import React, {
   MouseEventHandler,
   ReactChild,
 } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { useIsRole, Role } from "../../features/auth";
 
@@ -43,9 +43,10 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
     return (
       <Button
         className={clsx(className, styles.navItem)}
-        component={Link}
+        component={NavLink}
         onClick={onMenuClose}
         ref={ref}
+        activeClassName={styles.activeLink}
         {...props}
       >
         {children}
