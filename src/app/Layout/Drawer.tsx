@@ -32,7 +32,7 @@ interface NavListItem extends Record<string, any> {
 }
 
 function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
-  const styles = useStyles();
+  const classes = useStyles();
 
   const isAdmin = useIsRole(Role.ADMIN);
 
@@ -42,11 +42,11 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
   ) {
     return (
       <Button
-        className={clsx(className, styles.navItem)}
+        className={clsx(className, classes.navItem)}
         component={NavLink}
         onClick={onMenuClose}
         ref={ref}
-        activeClassName={styles.activeLink}
+        activeClassName={classes.activeLink}
         {...props}
       >
         {children}
@@ -56,7 +56,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
 
   const drawer = (
     <div>
-      <div className={styles.toolbar} />
+      <div className={classes.toolbar} />
       <List component="div">
         <ListItem component={forwardRef(NavListItem)} to="/capture">
           <ListItemIcon>
@@ -77,14 +77,14 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
   );
 
   return (
-    <nav className={styles.drawer}>
+    <nav className={classes.drawer}>
       <Hidden mdUp>
         <MaterialDrawer
           variant="temporary"
           open={mobileOpen}
           onClose={onMenuClose}
           classes={{
-            paper: styles.drawerPaper,
+            paper: classes.drawerPaper,
           }}
           ModalProps={{
             keepMounted: true,
@@ -98,7 +98,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
         <MaterialDrawer
           open
           classes={{
-            paper: styles.drawerPaper,
+            paper: classes.drawerPaper,
           }}
           variant="permanent"
           role="navigation"

@@ -10,7 +10,7 @@ interface LayoutProps {
 }
 
 function Layout({ children }: LayoutProps) {
-  const styles = useStyles();
+  const classes = useStyles();
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -23,12 +23,12 @@ function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <div className={styles.root}>
+    <div className={classes.root}>
       <Toolbar onMenuClick={handleDrawerToggle} />
       <Drawer mobileOpen={mobileOpen} onMenuClose={handleDrawerClose} />
-      <main className={styles.main}>
-        <div className={styles.toolbar} />
-        <div className={styles.content}>{children}</div>
+      <main className={classes.main}>
+        <div className={classes.toolbar} />
+        <div className={classes.content}>{children}</div>
       </main>
     </div>
   );

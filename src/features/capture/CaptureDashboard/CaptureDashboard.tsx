@@ -23,7 +23,7 @@ import useStyles from "./CaptureDashboard.styles";
 
 function CaptureDashboard() {
   const dispatch = useDispatch();
-  const styles = useStyles();
+  const classes = useStyles();
 
   const auth = useAuth();
 
@@ -40,12 +40,12 @@ function CaptureDashboard() {
 
   return (
     <div className="CaptureDashboard">
-      <div className={styles.header}>
-        <Typography className={styles.title} variant="h4" noWrap>
+      <div className={classes.header}>
+        <Typography className={classes.title} variant="h4" noWrap gutterBottom>
           Capture
         </Typography>
         <Button
-          className={styles.button}
+          className={classes.button}
           variant="contained"
           color="secondary"
           onClick={reset}
@@ -65,7 +65,7 @@ function CaptureDashboard() {
         ))}
       </Grid>
       <Zoom in={hasAnyPending && !isEmpty(auth)}>
-        <Fab className={styles.fab} color="primary" onClick={save}>
+        <Fab className={classes.fab} color="primary" onClick={save}>
           <SaveIcon />
         </Fab>
       </Zoom>

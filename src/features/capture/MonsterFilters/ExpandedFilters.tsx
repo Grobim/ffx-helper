@@ -16,10 +16,10 @@ import {
   useSpeciesMonsterFilter,
 } from "..";
 
-import useStyles from "./ExpandedFilters.style";
+import useStyles from "./ExpandedFilters.styles";
 
 function ExpandedFilters() {
-  const styles = useStyles();
+  const classes = useStyles();
 
   const checkedAreaMonsters = useCheckedAreaMonsters();
   const checkedSpeciesMonsters = useCheckedSpeciesMonsters();
@@ -63,7 +63,7 @@ function ExpandedFilters() {
   return (
     <Grid
       container
-      className={styles.otherFilters}
+      className={classes.otherFilters}
       spacing={1}
       justify="space-between"
     >
@@ -78,7 +78,7 @@ function ExpandedFilters() {
           variant="outlined"
           InputProps={{
             className: clsx({
-              [styles.selectItemSuccess]: isSelectedAreaMonsterUnlocked,
+              [classes.selectItemSuccess]: isSelectedAreaMonsterUnlocked,
             }),
           }}
         >
@@ -90,7 +90,7 @@ function ExpandedFilters() {
               key={monster.key}
               value={monster.key}
               className={clsx({
-                [styles.selectItemSuccess]: monster.isUnlocked,
+                [classes.selectItemSuccess]: monster.isUnlocked,
               })}
             >
               {monster.name}
@@ -109,7 +109,7 @@ function ExpandedFilters() {
           variant="outlined"
           InputProps={{
             className: clsx({
-              [styles.selectItemSuccess]: isSelectedSpeciesMonsterUnlocked,
+              [classes.selectItemSuccess]: isSelectedSpeciesMonsterUnlocked,
             }),
           }}
         >
@@ -121,7 +121,7 @@ function ExpandedFilters() {
               key={monster.key}
               value={monster.key}
               className={clsx({
-                [styles.selectItemSuccess]: monster.isUnlocked,
+                [classes.selectItemSuccess]: monster.isUnlocked,
               })}
             >
               {monster.name}

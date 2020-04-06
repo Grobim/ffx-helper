@@ -18,10 +18,10 @@ import {
 
 import ExpandedFilters from "./ExpandedFilters";
 
-import useStyles from "./MonsterFilters.style";
+import useStyles from "./MonsterFilters.styles";
 
 function MonsterFilters() {
-  const styles = useStyles();
+  const classes = useStyles();
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -44,19 +44,19 @@ function MonsterFilters() {
   }
 
   return (
-    <Paper className={styles.root}>
-      <div className={styles.searchBar}>
-        <SearchIcon className={clsx(styles.search)} />
+    <Paper className={classes.root}>
+      <div className={classes.searchBar}>
+        <SearchIcon className={classes.search} />
         <InputBase
           value={textFilter}
-          className={styles.input}
+          className={classes.input}
           onChange={handleSearchInputChange}
           placeholder="Search"
         />
-        <Divider className={styles.divider} orientation="vertical" />
+        <Divider className={classes.divider} orientation="vertical" />
         <IconButton
-          className={clsx(styles.expand, {
-            [styles.hasFilter]: hasAdditionnalFilter,
+          className={clsx(classes.expand, {
+            [classes.hasFilter]: hasAdditionnalFilter,
           })}
           onClick={handleExpandClick}
         >

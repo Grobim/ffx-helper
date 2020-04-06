@@ -26,7 +26,7 @@ function MonsterCard({
   pendingCaptureCount,
 }: MonsterCardProps) {
   const dispatch = useDispatch();
-  const styles = useStyles();
+  const classes = useStyles();
 
   function onPlusOneClick() {
     dispatch(addPending(monsterKey));
@@ -38,7 +38,11 @@ function MonsterCard({
         onClick={onPlusOneClick}
         disabled={capturedCount + pendingCaptureCount >= 10}
       >
-        <CardMedia className={styles.media} image={imgUrl} title={monsterKey} />
+        <CardMedia
+          className={classes.media}
+          image={imgUrl}
+          title={monsterKey}
+        />
         <CardContent>
           <Typography variant="h5" noWrap gutterBottom>
             {name}
@@ -47,25 +51,25 @@ function MonsterCard({
             variant="caption"
             color="textSecondary"
             component="div"
-            className={styles.label}
+            className={classes.label}
             gutterBottom
           >
             <span>{location}</span>
-            <div className={styles.labelSeparator} />
+            <div className={classes.labelSeparator} />
             <span>{species}</span>
           </Typography>
-          <Typography variant="body1" className={styles.label} component="div">
+          <Typography variant="body1" className={classes.label} component="div">
             <span
               className={clsx({
-                [styles.capturedLabelSuccess]: capturedCount >= 10,
+                [classes.capturedLabelSuccess]: capturedCount >= 10,
               })}
             >
               Captured:&nbsp;{capturedCount}
             </span>
             {pendingCaptureCount > 0 && (
               <>
-                <div className={styles.labelSeparator} />
-                <span className={styles.pendingLabel}>
+                <div className={classes.labelSeparator} />
+                <span className={classes.pendingLabel}>
                   (Pending:&nbsp;{pendingCaptureCount})
                 </span>
               </>

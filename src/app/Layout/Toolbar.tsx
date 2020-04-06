@@ -21,25 +21,25 @@ interface ToolbarLinkProps extends Record<string, any> {
 }
 
 function Toolbar({ onMenuClick }: ToolbarProps) {
-  const styles = useStyles();
+  const classes = useStyles();
 
   function ToolbarLink({ children, className, ...props }: ToolbarLinkProps) {
     return (
-      <Link className={clsx(className, styles.navToolbar)} {...props}>
+      <Link className={clsx(className, classes.navToolbar)} {...props}>
         {children}
       </Link>
     );
   }
 
   return (
-    <AppBar position="fixed" className={styles.appBar}>
+    <AppBar position="fixed" className={classes.appBar}>
       <MaterialToolbar>
         <IconButton
           color="inherit"
           aria-label="open drawer"
           edge="start"
           onClick={onMenuClick}
-          className={styles.menuButton}
+          className={classes.menuButton}
         >
           <MenuIcon />
         </IconButton>
