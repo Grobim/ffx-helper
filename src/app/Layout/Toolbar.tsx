@@ -4,6 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MaterialToolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
+import clsx from "clsx";
 import React, { MouseEventHandler, ReactChild } from "react";
 import { Link } from "react-router-dom";
 
@@ -24,7 +25,7 @@ function Toolbar({ onMenuClick }: ToolbarProps) {
 
   function ToolbarLink({ children, className, ...props }: ToolbarLinkProps) {
     return (
-      <Link className={`${className} ${styles.navToolbar}`} {...props}>
+      <Link className={clsx(className, styles.navToolbar)} {...props}>
         {children}
       </Link>
     );

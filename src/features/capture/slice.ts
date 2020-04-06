@@ -1,7 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import groupBy from "lodash/groupBy";
 
-import { monsters } from "../../models";
-import type { MonsterKey, Location, Species } from "../../models";
+import {
+  areaSpecialMonsters,
+  monsters,
+  speciesSpecialMonsters,
+} from "../../models";
+import type {
+  MonsterKey,
+  Location,
+  Species,
+  SpecialSpecies,
+} from "../../models";
 
 import { triggerSaveCapture } from "./actions";
 import type { CaptureState } from "./types";
@@ -12,9 +22,29 @@ const mappedMonsters = monsters.map((monster) => ({
   pendingCaptureCount: 0,
 }));
 
+const monstersByLocation = groupBy(monsters, "location");
+const mappedAreaSpecialMonsters = Object.keys(areaSpecialMonsters).map(
+  (location) => ({
+    ...areaSpecialMonsters[location as Location],
+    location: location as Location,
+    monsterList: monstersByLocation[location].map((monster) => monster.key),
+  })
+);
+
+const monstersBySpecies = groupBy(monsters, "species");
+const mappedSpeciesSpecialMonsters = Object.keys(speciesSpecialMonsters).map(
+  (species) => ({
+    ...speciesSpecialMonsters[species as SpecialSpecies],
+    monsterList: monstersBySpecies[species].map((monster) => monster.key),
+    targetSpecies: species as SpecialSpecies,
+  })
+);
+
 const initialState: CaptureState = {
   monsters: mappedMonsters,
-  pendingSave: {},
+  areaSpecialMonsters: mappedAreaSpecialMonsters,
+  speciesSpecialMonsters: mappedSpeciesSpecialMonsters,
+  pendingCaptureSaves: {},
   textFilter: "",
 };
 
@@ -43,12 +73,24 @@ const slice = createSlice({
     updateSpeciesFilter: (state, { payload }: PayloadAction<Species>) => {
       state.speciesFilter = payload;
     },
+    updateAreaMonsterFilter: (
+      state,
+      { payload }: PayloadAction<MonsterKey>
+    ) => {
+      state.areaMonsterFilter = payload;
+    },
+    updateSpeciesMonsterFilter: (
+      state,
+      { payload }: PayloadAction<MonsterKey>
+    ) => {
+      state.speciesMonsterFilter = payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(triggerSaveCapture.pending, (state) => {
       const { monsters } = state;
 
-      state.pendingSave = monsters
+      state.pendingCaptureSaves = monsters
         .filter((monster) => monster.pendingCaptureCount)
         .reduce(
           (prev, { key, pendingCaptureCount }) => ({
@@ -62,19 +104,19 @@ const slice = createSlice({
     });
 
     builder.addCase(triggerSaveCapture.fulfilled, (state) => {
-      state.pendingSave = {};
+      state.pendingCaptureSaves = {};
     });
 
     builder.addCase(
       triggerSaveCapture.rejected,
-      ({ monsters, pendingSave }) => {
+      ({ monsters, pendingCaptureSaves }) => {
         monsters.forEach((monster) => {
-          const monsterPendings = pendingSave[monster.key];
+          const monsterPendings = pendingCaptureSaves[monster.key];
 
           if (monsterPendings) {
             monster.pendingCaptureCount = monsterPendings;
 
-            delete pendingSave[monster.key];
+            delete pendingCaptureSaves[monster.key];
           }
         });
       }

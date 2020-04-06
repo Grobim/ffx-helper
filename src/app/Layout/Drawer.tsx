@@ -7,13 +7,16 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PeopleIcon from "@material-ui/icons/People";
 import PetsIcon from "@material-ui/icons/Pets";
+import clsx from "clsx";
 import React, {
   ElementRef,
   forwardRef,
   MouseEventHandler,
   ReactChild,
 } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
+import { useIsRole, Role } from "../../features/auth";
 
 import useStyles from "./Layout.styles";
 
@@ -31,16 +34,19 @@ interface NavListItem extends Record<string, any> {
 function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
   const styles = useStyles();
 
+  const isAdmin = useIsRole(Role.ADMIN);
+
   function NavListItem(
     { children, className, ...props }: NavListItem,
     ref: ElementRef<any>
   ) {
     return (
       <Button
-        className={`${className} ${styles.navItem}`}
-        component={Link}
+        className={clsx(className, styles.navItem)}
+        component={NavLink}
         onClick={onMenuClose}
         ref={ref}
+        activeClassName={styles.activeLink}
         {...props}
       >
         {children}
@@ -58,12 +64,14 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
           </ListItemIcon>
           <ListItemText primary="Capture" />
         </ListItem>
-        <ListItem component={forwardRef(NavListItem)} to="/users">
-          <ListItemIcon>
-            <PeopleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Users" />
-        </ListItem>
+        {isAdmin && (
+          <ListItem component={forwardRef(NavListItem)} to="/users">
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Users" />
+          </ListItem>
+        )}
       </List>
     </div>
   );
@@ -88,11 +96,12 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
       </Hidden>
       <Hidden smDown>
         <MaterialDrawer
+          open
           classes={{
             paper: styles.drawerPaper,
           }}
           variant="permanent"
-          open
+          role="navigation"
         >
           {drawer}
         </MaterialDrawer>

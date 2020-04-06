@@ -25,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
   navItem: {
     textTransform: "initial",
   },
+  activeLink: {
+    backgroundColor: theme.palette.grey[400],
+    "&:hover": {
+      backgroundColor: theme.palette.grey[400],
+    },
+  },
 }));
 
 export default useStyles;

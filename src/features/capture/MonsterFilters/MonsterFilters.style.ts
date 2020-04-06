@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.shortest,
     }),
   },
-  otherFilters: {
-    marginTop: theme.spacing(2),
-  },
 }));
 
 export default useStyles;

@@ -11,12 +11,22 @@ import {
   selectTextFilter,
   selectLocationFilter,
   selectSpeciesFilter,
+  selectAreaMonsterFilter,
+  selectSpeciesMonsterFilter,
+  selectCheckedAreaSpecialMonsters,
+  selectCheckedSpeciesSpecialMonsters,
   updateTextFilter,
   updateLocationFilter,
   updateSpeciesFilter,
+  updateAreaMonsterFilter,
+  updateSpeciesMonsterFilter,
 } from ".";
 
 const useAnyPending = () => useSelector(selectAnyPending);
+const useCheckedAreaMonsters = () =>
+  useSelector(selectCheckedAreaSpecialMonsters);
+const useCheckedSpeciesMonsters = () =>
+  useSelector(selectCheckedSpeciesSpecialMonsters);
 
 const useUserCaptureMapConnect = () => {
   const uid = useUserId();
@@ -24,7 +34,7 @@ const useUserCaptureMapConnect = () => {
   useFirestoreConnect(`captures/${uid}`);
 };
 
-const useSyncedCapturedMonsters = () => {
+const useSyncedFilteredCapturedMonsters = () => {
   useUserCaptureMapConnect();
 
   return useSelector(selectFilteredCapturedMonsters);
@@ -39,10 +49,23 @@ const useLocationFilter = () =>
 const useSpeciesFilter = () =>
   useSelectorAndActionCreator(selectSpeciesFilter, updateSpeciesFilter);
 
+const useAreaMonsterFilter = () =>
+  useSelectorAndActionCreator(selectAreaMonsterFilter, updateAreaMonsterFilter);
+
+const useSpeciesMonsterFilter = () =>
+  useSelectorAndActionCreator(
+    selectSpeciesMonsterFilter,
+    updateSpeciesMonsterFilter
+  );
+
 export {
   useAnyPending,
-  useSyncedCapturedMonsters,
+  useCheckedAreaMonsters,
+  useCheckedSpeciesMonsters,
+  useSyncedFilteredCapturedMonsters,
   useTextFilter,
   useLocationFilter,
   useSpeciesFilter,
+  useAreaMonsterFilter,
+  useSpeciesMonsterFilter,
 };

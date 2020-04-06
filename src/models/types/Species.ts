@@ -37,4 +37,21 @@ enum Species {
   WORM = "WORM",
 }
 
+type SpecialSpecies =
+  | Species.LUPINE
+  | Species.REPTILE
+  | Species.BIRD
+  | Species.WASP
+  | Species.IMP
+  | Species.EVIL_EYE
+  | Species.FLAN
+  | Species.ELEMENTAL
+  | Species.HELM
+  | Species.DRAKE
+  | Species.FUNGUS
+  | Species.BOMB
+  | Species.RUMINANT
+  | Species.IRON_GIANT;
+
+export type { SpecialSpecies };
 export { Species };

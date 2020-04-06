@@ -1,14 +1,20 @@
 import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Zoom from "@material-ui/core/Zoom";
+import SaveIcon from "@material-ui/icons/Save";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { isEmpty } from "react-redux-firebase";
+
+import { useAuth } from "../../auth";
 
 import {
   resetPendings,
   triggerSaveCapture,
   useAnyPending,
-  useSyncedCapturedMonsters,
+  useSyncedFilteredCapturedMonsters,
 } from "..";
 import MonsterCard from "../MonsterCard";
 import MonsterFilters from "../MonsterFilters";
@@ -19,7 +25,9 @@ function CaptureDashboard() {
   const dispatch = useDispatch();
   const styles = useStyles();
 
-  const monsters = useSyncedCapturedMonsters();
+  const auth = useAuth();
+
+  const monsters = useSyncedFilteredCapturedMonsters();
   const hasAnyPending = useAnyPending();
 
   function reset() {
@@ -45,15 +53,6 @@ function CaptureDashboard() {
         >
           Reset Pendings
         </Button>
-        <Button
-          className={styles.button}
-          variant="contained"
-          color="primary"
-          onClick={save}
-          disabled={!hasAnyPending}
-        >
-          Save Pendings
-        </Button>
       </div>
       <Grid container spacing={1}>
         <Grid xs={12} item>
@@ -65,6 +64,11 @@ function CaptureDashboard() {
           </Grid>
         ))}
       </Grid>
+      <Zoom in={hasAnyPending && !isEmpty(auth)}>
+        <Fab className={styles.fab} color="primary" onClick={save}>
+          <SaveIcon />
+        </Fab>
+      </Zoom>
     </div>
   );
 }
