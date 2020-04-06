@@ -5,9 +5,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     boxSizing: "initial",
   },
-  selectItemSuccess: {
-    color: theme.palette.success.main,
-  },
   searchBar: {
     display: "flex",
     alignItems: "center",
@@ -33,9 +30,6 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
-  },
-  otherFilters: {
-    marginTop: theme.spacing(2),
   },
 }));
 
