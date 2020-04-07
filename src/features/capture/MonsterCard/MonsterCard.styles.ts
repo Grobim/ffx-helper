@@ -6,6 +6,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 1, 0),
     backgroundSize: "contain",
   },
+  content: {
+    padding: theme.spacing(2, 2, 0),
+  },
   label: {
     display: "flex",
     flexWrap: "wrap",
@@ -18,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
   pendingLabel: {
     color: theme.palette.warning.main,
+  },
+  firstRightAction: {
+    marginLeft: "auto",
+  },
+  dialog: {
+    width: 400,
   },
 }));
 

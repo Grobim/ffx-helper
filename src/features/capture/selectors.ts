@@ -81,7 +81,10 @@ const selectFilteredCapturedMonsters = createSelector(
           ...monster,
           capturedCount: userCaptureMap[monster.key] || 0,
         }))
-      : monsters
+      : monsters.map((monster) => ({
+          ...monster,
+          capturedCount: 0,
+        }))
 );
 
 const selectCheckedAreaSpecialMonsters = createSelector(

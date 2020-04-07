@@ -48,6 +48,7 @@ const store = configureStore({
   reducer: getReducerMap() as ReturnType<typeof getReducerMap>,
   middleware: getDefaultMiddleware({
     thunk: { extraArgument: { getFirebase } },
+    serializableCheck: { ignoredActions: ["@@reactReduxFirebase/LOGIN"] },
   }),
   devTools: process.env.NODE_ENV !== "production",
 });

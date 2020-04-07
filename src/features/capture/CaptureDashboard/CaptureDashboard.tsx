@@ -58,9 +58,9 @@ function CaptureDashboard() {
         <Grid xs={12} item>
           <MonsterFilters />
         </Grid>
-        {monsters.map(({ key, ...monster }) => (
-          <Grid key={key} item xs={6} sm={4} lg={3}>
-            <MonsterCard monsterKey={key} {...monster} />
+        {monsters.map((monster) => (
+          <Grid key={monster.key} item xs={6} sm={4} lg={3}>
+            <MonsterCard monster={monster} />
           </Grid>
         ))}
       </Grid>
