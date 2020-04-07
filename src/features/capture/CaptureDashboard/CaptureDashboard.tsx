@@ -1,12 +1,14 @@
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { isEmpty } from "react-redux-firebase";
+import { forceCheck } from "react-lazyload";
+
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Zoom from "@material-ui/core/Zoom";
 import SaveIcon from "@material-ui/icons/Save";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { isEmpty } from "react-redux-firebase";
 
 import { useAuth } from "../../auth";
 
@@ -29,6 +31,8 @@ function CaptureDashboard() {
 
   const monsters = useSyncedFilteredCapturedMonsters();
   const hasAnyPending = useAnyPending();
+
+  useEffect(forceCheck, [monsters]);
 
   function reset() {
     dispatch(resetPendings());
