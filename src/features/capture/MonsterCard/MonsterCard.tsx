@@ -14,9 +14,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
+import Fade from "@material-ui/core/Fade";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import Fade from "@material-ui/core/Fade";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import type { MappedMonster } from "..";
@@ -62,20 +62,21 @@ function MonsterCard({
   }
 
   return (
-    <LazyLoad height={396} throttle={100}>
+    <LazyLoad height={404} throttle={100} offset={404}>
       <Fade in>
         <Card>
-          <CardHeader
-            title={name}
-            subheader={species}
-            subheaderTypographyProps={{ variant: "caption" }}
-          />
           <CardActionArea
             onClick={handlePlusOneClick}
             disabled={capturedCount + pendingCaptureCount >= 10}
           >
+            <CardHeader
+              title={name}
+              titleTypographyProps={{ className: classes.title }}
+              subheader={species}
+              subheaderTypographyProps={{ variant: "caption" }}
+            />
             <CardMedia title={key} image={imgUrl} className={classes.media} />
-            <CardContent className={classes.content}>
+            <CardContent>
               <Typography
                 variant="caption"
                 color="textSecondary"

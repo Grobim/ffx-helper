@@ -1,13 +1,16 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  title: {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    maxWidth: "94%",
+  },
   media: {
     height: 170,
     margin: theme.spacing(1, 1, 0),
     backgroundSize: "contain",
-  },
-  content: {
-    padding: theme.spacing(2, 2, 0),
   },
   label: {
     display: "flex",
