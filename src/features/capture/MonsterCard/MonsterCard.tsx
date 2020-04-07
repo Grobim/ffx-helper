@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import LazyLoad from "react-lazyload";
 import { useDispatch } from "react-redux";
 import clsx from "clsx";
 
@@ -15,6 +16,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import Fade from "@material-ui/core/Fade";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import type { MappedMonster } from "..";
@@ -60,62 +62,64 @@ function MonsterCard({
   }
 
   return (
-    <>
-      <Card>
-        <CardHeader
-          title={name}
-          subheader={species}
-          subheaderTypographyProps={{ variant: "caption" }}
-        />
-        <CardActionArea
-          onClick={handlePlusOneClick}
-          disabled={capturedCount + pendingCaptureCount >= 10}
-        >
-          <CardMedia title={key} image={imgUrl} className={classes.media} />
-          <CardContent className={classes.content}>
-            <Typography
-              variant="caption"
-              color="textSecondary"
-              component="div"
-              className={classes.label}
-              gutterBottom
-            >
-              <span>{location}</span>
-            </Typography>
-            <Typography
-              variant="body1"
-              className={classes.label}
-              component="div"
-            >
-              <span
-                className={clsx({
-                  [classes.capturedLabelSuccess]: capturedCount >= 10,
-                })}
-              >
-                Captured:&nbsp;{capturedCount}
-              </span>
-              {pendingCaptureCount > 0 && (
-                <>
-                  <div className={classes.labelSeparator} />
-                  <span className={classes.pendingLabel}>
-                    (Pending:&nbsp;{pendingCaptureCount})
-                  </span>
-                </>
-              )}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <IconButton
-            disabled={!capturedCount}
-            color="secondary"
-            onClick={handleOpenDialog}
-            className={classes.firstRightAction}
+    <LazyLoad height={396} throttle={100}>
+      <Fade in>
+        <Card>
+          <CardHeader
+            title={name}
+            subheader={species}
+            subheaderTypographyProps={{ variant: "caption" }}
+          />
+          <CardActionArea
+            onClick={handlePlusOneClick}
+            disabled={capturedCount + pendingCaptureCount >= 10}
           >
-            <DeleteIcon />
-          </IconButton>
-        </CardActions>
-      </Card>
+            <CardMedia title={key} image={imgUrl} className={classes.media} />
+            <CardContent className={classes.content}>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                component="div"
+                className={classes.label}
+                gutterBottom
+              >
+                <span>{location}</span>
+              </Typography>
+              <Typography
+                variant="body1"
+                className={classes.label}
+                component="div"
+              >
+                <span
+                  className={clsx({
+                    [classes.capturedLabelSuccess]: capturedCount >= 10,
+                  })}
+                >
+                  Captured:&nbsp;{capturedCount}
+                </span>
+                {pendingCaptureCount > 0 && (
+                  <>
+                    <div className={classes.labelSeparator} />
+                    <span className={classes.pendingLabel}>
+                      (Pending:&nbsp;{pendingCaptureCount})
+                    </span>
+                  </>
+                )}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <IconButton
+              disabled={!capturedCount}
+              color="secondary"
+              onClick={handleOpenDialog}
+              className={classes.firstRightAction}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
+      </Fade>
       <Dialog
         open={isDialogOpen}
         onClose={handleCloseDialog}
@@ -137,7 +141,7 @@ function MonsterCard({
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </LazyLoad>
   );
 }
 
