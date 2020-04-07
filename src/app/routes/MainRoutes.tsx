@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import Login from "../../features/auth/Login";
+import Settings from "../../features/auth/Settings";
 import CaptureDashboard from "../../features/capture/CaptureDashboard";
 import { Home } from "../../features/home/Home";
 import { Role } from "../../features/auth";
@@ -23,6 +24,9 @@ function MainRoutes() {
       </Route>
       <Route path="/capture">
         <CaptureDashboard />
+      </Route>
+      <Route path="/settings">
+        <Settings />
       </Route>
       <Route path="*">
         <div>404 mamène</div>

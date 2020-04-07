@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import MaterialDrawer from "@material-ui/core/Drawer";
+import Divider from "@material-ui/core/Divider";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -7,6 +8,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PeopleIcon from "@material-ui/icons/People";
 import PetsIcon from "@material-ui/icons/Pets";
+import SettingsIcon from "@material-ui/icons/Settings";
 import clsx from "clsx";
 import React, {
   ElementRef,
@@ -72,6 +74,15 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
             <ListItemText primary="Users" />
           </ListItem>
         )}
+      </List>
+      <Divider />
+      <List component="div">
+        <ListItem component={forwardRef(NavListItem)} to="/settings">
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+        </ListItem>
       </List>
     </div>
   );

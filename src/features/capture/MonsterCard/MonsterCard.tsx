@@ -62,7 +62,7 @@ function MonsterCard({
   }
 
   return (
-    <LazyLoad height={412} throttle={100} offset={500}>
+    <LazyLoad height={362} throttle={100} offset={500}>
       <Fade in>
         <Card>
           <CardActionArea
@@ -74,9 +74,10 @@ function MonsterCard({
               titleTypographyProps={{ className: classes.title }}
               subheader={species}
               subheaderTypographyProps={{ variant: "caption" }}
+              className={classes.header}
             />
             <CardMedia title={key} image={imgUrl} className={classes.media} />
-            <CardContent>
+            <CardContent className={classes.content}>
               <Typography
                 variant="caption"
                 color="textSecondary"
@@ -112,6 +113,7 @@ function MonsterCard({
           <CardActions>
             <IconButton
               disabled={!capturedCount}
+              size="small"
               color="secondary"
               onClick={handleOpenDialog}
               className={classes.firstRightAction}

@@ -20,16 +20,13 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   content: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
   },
   navItem: {
     textTransform: "initial",
   },
   activeLink: {
-    backgroundColor: theme.palette.grey[400],
-    "&:hover": {
-      backgroundColor: theme.palette.grey[400],
-    },
+    backgroundColor: theme.palette.action.selected,
   },
 }));
 
