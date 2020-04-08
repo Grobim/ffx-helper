@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import groupBy from "lodash/groupBy";
 
 import {
-  areaSpecialMonsters,
+  monsterAreaMonsters,
   monsters,
   speciesSpecialMonsters,
 } from "../../models";
 import type {
   MonsterKey,
-  Location,
+  MonsterArena,
   Species,
   SpecialSpecies,
 } from "../../models";
@@ -22,12 +22,14 @@ const mappedMonsters = monsters.map((monster) => ({
   pendingCaptureCount: 0,
 }));
 
-const monstersByLocation = groupBy(monsters, "location");
-const mappedAreaSpecialMonsters = Object.keys(areaSpecialMonsters).map(
-  (location) => ({
-    ...areaSpecialMonsters[location as Location],
-    location: location as Location,
-    monsterList: monstersByLocation[location].map((monster) => monster.key),
+const monstersByMonsterArena = groupBy(monsters, "monsterArena");
+const mappedAreaSpecialMonsters = Object.keys(monsterAreaMonsters).map(
+  (monsterArenas) => ({
+    ...monsterAreaMonsters[monsterArenas as MonsterArena],
+    monsterArenas: monsterArenas as MonsterArena,
+    monsterList: monstersByMonsterArena[monsterArenas].map(
+      (monster) => monster.key
+    ),
   })
 );
 
@@ -42,7 +44,7 @@ const mappedSpeciesSpecialMonsters = Object.keys(speciesSpecialMonsters).map(
 
 const initialState: CaptureState = {
   monsters: mappedMonsters,
-  areaSpecialMonsters: mappedAreaSpecialMonsters,
+  monsterArenaMonsters: mappedAreaSpecialMonsters,
   speciesSpecialMonsters: mappedSpeciesSpecialMonsters,
   pendingCaptureSaves: {},
   textFilter: "",
@@ -67,7 +69,7 @@ const slice = createSlice({
     updateTextFilter: (state, { payload }: PayloadAction<string>) => {
       state.textFilter = payload;
     },
-    updateLocationFilter: (state, { payload }: PayloadAction<Location>) => {
+    updateLocationFilter: (state, { payload }: PayloadAction<MonsterArena>) => {
       state.locationFilter = payload;
     },
     updateSpeciesFilter: (state, { payload }: PayloadAction<Species>) => {
@@ -77,7 +79,7 @@ const slice = createSlice({
       state,
       { payload }: PayloadAction<MonsterKey>
     ) => {
-      state.areaMonsterFilter = payload;
+      state.monsterAreaFilter = payload;
     },
     updateSpeciesMonsterFilter: (
       state,

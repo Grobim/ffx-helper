@@ -3,7 +3,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../app/redux";
 import { getSelectFirestoreDataOrOrdered } from "../../app/redux/selectors";
 import {
-  areaSpecialMonsters,
+  monsterAreaMonsters,
   speciesSpecialMonsters,
   SpecialSpecies,
 } from "../../models";
@@ -12,14 +12,14 @@ import { selectUserId } from "../auth";
 
 const selectMonsters = (state: RootState) => state.capture.monsters;
 const selectAreaSpecialMonsters = (state: RootState) =>
-  state.capture.areaSpecialMonsters;
+  state.capture.monsterArenaMonsters;
 const selectSpeciesSpecialMonsters = (state: RootState) =>
   state.capture.speciesSpecialMonsters;
 const selectTextFilter = (state: RootState) => state.capture.textFilter;
 const selectLocationFilter = (state: RootState) => state.capture.locationFilter;
 const selectSpeciesFilter = (state: RootState) => state.capture.speciesFilter;
 const selectAreaMonsterFilter = (state: RootState) =>
-  state.capture.areaMonsterFilter;
+  state.capture.monsterAreaFilter;
 const selectSpeciesMonsterFilter = (state: RootState) =>
   state.capture.speciesMonsterFilter;
 
@@ -57,17 +57,19 @@ const selectFilteredMonsters = createSelector(
         speciesSpecialMonsters[(monster.species as unknown) as SpecialSpecies];
 
       return (
-        (!locationFilter || monster.location === locationFilter) &&
+        (!locationFilter || monster.monsterArena === locationFilter) &&
         (!speciesFilter || monster.species === speciesFilter) &&
         (!areaMonsterFilter ||
-          areaSpecialMonsters[monster.location].key === areaMonsterFilter) &&
+          monsterAreaMonsters[monster.monsterArena].key ===
+            areaMonsterFilter) &&
         (!speciesMonsterFilter ||
           (monsterSpecialSpecies &&
             monsterSpecialSpecies.key === speciesMonsterFilter)) &&
         (!textFilter ||
           monster.key.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
           monster.name.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
-          monster.location.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
+          monster.monsterArena.toLowerCase().indexOf(lowercasedTextFilter) >=
+            0 ||
           monster.species.toLowerCase().indexOf(lowercasedTextFilter) >= 0)
       );
     })

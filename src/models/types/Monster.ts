@@ -1,19 +1,19 @@
-import type { Location } from "./Location";
+import type { MonsterArena } from "./MonsterArena";
 import type { Species } from "./Species";
 import type { MonsterKey } from "./MonsterKey";
 
 interface Monster {
   key: MonsterKey;
   name: string;
-  location: Location;
+  monsterArena: MonsterArena;
   species: Species;
   imgUrl: string;
 }
 
-interface AreaSpecialMonster extends Omit<Monster, "location"> {}
+interface MonsterArenaMonster extends Omit<Monster, "monsterArena"> {}
 
-interface SpeciesSpecialMonster extends Omit<Monster, "location"> {
+interface SpeciesSpecialMonster extends Omit<Monster, "monsterArena"> {
   requiredCaptures: number;
 }
 
-export type { Monster, AreaSpecialMonster, SpeciesSpecialMonster };
+export type { Monster, MonsterArenaMonster, SpeciesSpecialMonster };

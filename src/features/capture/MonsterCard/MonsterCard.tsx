@@ -32,7 +32,7 @@ function MonsterCard({
   monster: {
     key,
     name,
-    location,
+    monsterArena,
     imgUrl,
     species,
     capturedCount,
@@ -85,7 +85,7 @@ function MonsterCard({
                 className={classes.label}
                 gutterBottom
               >
-                <span>{location}</span>
+                <span>{monsterArena}</span>
               </Typography>
               <Typography
                 variant="body1"

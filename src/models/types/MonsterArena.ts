@@ -1,4 +1,4 @@
-enum Location {
+enum MonsterArena {
   BESAID = "BESAID",
   BIKANEL = "BIKANEL",
   CALM_LANDS = "CALM_LANDS",
@@ -14,4 +14,4 @@ enum Location {
   THUNDER_PLAINS = "THUNDER_PLAINS",
 }
 
-export { Location };
+export { MonsterArena };
