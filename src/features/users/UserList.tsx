@@ -25,4 +25,4 @@ function UserList() {
   );
 }
 
-export { UserList };
+export default UserList;

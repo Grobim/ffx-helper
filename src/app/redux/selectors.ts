@@ -1,7 +1,5 @@
 import type { RootState, FirestoreState } from "./types";
 
-const selectFireStore = (state: RootState) => state.firestore;
-
 function getSelectFirestoreDataOrOrdered(
   ordered?: false
 ): (state: RootState) => FirestoreState["data"];
@@ -13,11 +11,11 @@ function getSelectFirestoreDataOrOrdered(
 ): (state: RootState) => FirestoreState["data"] | FirestoreState["ordered"] {
   return (state) => {
     if (ordered) {
-      return selectFireStore(state).ordered;
+      return state.firestore.ordered;
     } else {
-      return selectFireStore(state).data;
+      return state.firestore.data;
     }
   };
 }
 
-export { selectFireStore, getSelectFirestoreDataOrOrdered };
+export { getSelectFirestoreDataOrOrdered };

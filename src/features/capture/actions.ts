@@ -1,24 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { getFirebase } from "react-redux-firebase";
+import { isEmpty } from "react-redux-firebase";
 import sourceFirebase from "firebase/app";
 
+import { AppThunkApiConfig } from "../../app/redux";
 import type { MonsterKey } from "../../models";
+import { selectAuth } from "../auth";
+
 import type { MappedMonster } from "./types";
 
 const triggerSaveCapture = createAsyncThunk<
   void,
   MappedMonster[],
-  { extra: { getFirebase: typeof getFirebase } }
+  AppThunkApiConfig
 >(
   "capture/triggerSaveCapture",
-  async (monsters, { extra: { getFirebase } }) => {
-    const firebase = getFirebase();
-    const firestore = firebase.firestore();
+  async (monsters, { extra: { getFirebase }, getState }) => {
+    const firestore = getFirebase().firestore();
 
-    const auth = firebase.auth().currentUser;
+    const auth = selectAuth(getState());
 
-    if (!auth) {
-      throw new Error("Must be connected to save");
+    if (isEmpty(auth)) {
+      throw new Error("Must be connected to save captures");
     }
 
     const captureMapUpdates = monsters
@@ -40,17 +42,16 @@ const triggerSaveCapture = createAsyncThunk<
 const triggerResetCapture = createAsyncThunk<
   void,
   MonsterKey,
-  { extra: { getFirebase: typeof getFirebase } }
+  AppThunkApiConfig
 >(
   "capture/triggerResetCapture",
-  async (key: MonsterKey, { extra: { getFirebase } }) => {
-    const firebase = getFirebase();
-    const firestore = firebase.firestore();
+  async (key: MonsterKey, { extra: { getFirebase }, getState }) => {
+    const firestore = getFirebase().firestore();
 
-    const auth = firebase.auth().currentUser;
+    const auth = selectAuth(getState());
 
-    if (!auth) {
-      throw new Error("Must be connected to reset");
+    if (isEmpty(auth)) {
+      throw new Error("Must be connected to reset captures");
     }
 
     const captureMapRef = firestore.collection("captures").doc(auth.uid);

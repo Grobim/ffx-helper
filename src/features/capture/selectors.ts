@@ -115,6 +115,8 @@ const selectCheckedSpeciesSpecialMonsters = createSelector(
 
 export {
   selectMonsters,
+  selectAreaSpecialMonsters,
+  selectSpeciesSpecialMonsters,
   selectTextFilter,
   selectLocationFilter,
   selectSpeciesFilter,
