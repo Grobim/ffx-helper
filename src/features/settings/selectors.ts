@@ -1,7 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 import { selectUserId } from "../auth";
-import { getSelectFirestoreDataOrOrdered } from "../../app/redux/selectors";
+import {
+  getSelectFirestoreDataOrOrdered,
+  selectLastConnectedUserId,
+} from "../../app/redux/selectors";
 import { UserSettings } from "./types";
 
 const defaultSettings: UserSettings = {
@@ -9,12 +12,15 @@ const defaultSettings: UserSettings = {
 };
 
 const selectUserSettings = createSelector(
-  [selectUserId, getSelectFirestoreDataOrOrdered()],
-  (userId, firebaseData) =>
-    firebaseData.settings && {
-      ...defaultSettings,
-      ...firebaseData.settings[userId],
-    }
+  [selectUserId, selectLastConnectedUserId, getSelectFirestoreDataOrOrdered()],
+  (userId, selectLastConnectedUserId, firestoreData) => {
+    return (
+      firestoreData.settings && {
+        ...defaultSettings,
+        ...firestoreData.settings[selectLastConnectedUserId || userId],
+      }
+    );
+  }
 );
 
 export { selectUserSettings };

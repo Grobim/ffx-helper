@@ -1,10 +1,12 @@
 import "typeface-roboto";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import React, { useMemo } from "react";
 
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import { useSyncedUserSettings } from "../../features/settings";
+
+import SyncLastConnectedUser from "../redux/SyncLastConnectedUser";
 
 import Layout from "../Layout";
 import { MainRoutes } from "../routes";
@@ -23,12 +25,15 @@ function App() {
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Layout>
-        <MainRoutes />
-      </Layout>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Layout>
+          <MainRoutes />
+        </Layout>
+      </ThemeProvider>
+      <SyncLastConnectedUser />
+    </>
   );
 }
 

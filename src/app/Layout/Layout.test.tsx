@@ -5,13 +5,13 @@ import { StaticRouter } from "react-router-dom";
 
 import { store } from "../redux/store";
 
-import App from "./App";
+import Layout from ".";
 
 test("renders Header", () => {
   const { getByText } = render(
     <StaticRouter location="/">
       <Provider store={store}>
-        <App />
+        <Layout>{"Toto"}</Layout>
       </Provider>
     </StaticRouter>
   );

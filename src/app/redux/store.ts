@@ -1,8 +1,10 @@
 import {
+  combineReducers,
+  compose,
   configureStore,
   getDefaultMiddleware,
+  PayloadAction,
   Reducer,
-  combineReducers,
 } from "@reduxjs/toolkit";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -16,9 +18,13 @@ import {
   ReactReduxFirebaseProviderProps,
 } from "react-redux-firebase";
 import { createFirestoreInstance, firestoreReducer } from "redux-firestore";
+import persistState, { mergePersistedState } from "redux-localstorage";
+import adapter from "redux-localstorage/lib/adapters/localStorage";
+import filter from "redux-localstorage-filter";
 
 import { UserProfile } from "../../features/auth";
 
+import { firestoreOverride } from "./actions";
 import { reducers } from "./reducers";
 import { FirestoreState } from "./types";
 
@@ -38,19 +44,49 @@ firebase.initializeApp(firebaseConfig);
 firebase.firestore();
 firebase.functions();
 
+function mergeOfflineOverride(next: Function) {
+  return (state: any, action: PayloadAction<Record<string, unknown>>) => {
+    const finalState =
+      action.type === firestoreOverride.toString() && action.payload
+        ? { ...state, ...action.payload }
+        : state;
+    return next(finalState, action);
+  };
+}
+
+const getFirebaseStore = () => compose(mergeOfflineOverride)(firestoreReducer);
+
 const getReducerMap = () => ({
-  firebase: firebaseReducer as () => FirebaseReducer.Reducer<UserProfile, any>,
-  firestore: firestoreReducer as Reducer<FirestoreState>,
+  firebase: firebaseReducer as () => FirebaseReducer.Reducer<UserProfile>,
+  firestore: getFirebaseStore() as Reducer<FirestoreState>,
   ...reducers,
 });
 
+const getRootReducer = () => {
+  const rootReducer = combineReducers(getReducerMap());
+
+  return compose(mergePersistedState())(rootReducer) as typeof rootReducer;
+};
+
+const storage = compose(
+  filter(["firestore.data.settings", "app.lastConnectedUId"])
+)(adapter(window.localStorage));
+
 const store = configureStore({
-  reducer: getReducerMap() as ReturnType<typeof getReducerMap>,
+  reducer: getRootReducer(),
   middleware: getDefaultMiddleware({
     thunk: { extraArgument: { getFirebase } },
-    serializableCheck: { ignoredActions: ["@@reactReduxFirebase/LOGIN"] },
+    serializableCheck: {
+      ignoredActions: [
+        "@@reactReduxFirebase/LOGIN",
+        "@@reduxFirestore/LISTENER_ERROR",
+        "@@reduxFirestore/SET_LISTENER",
+        "@@reduxFirestore/UNSET_LISTENER",
+      ],
+    },
   }),
   devTools: process.env.NODE_ENV !== "production",
+  enhancers: [persistState(storage, "FFX-HELPER/settings") as any],
 });
 
 if (process.env.NODE_ENV !== "production") {

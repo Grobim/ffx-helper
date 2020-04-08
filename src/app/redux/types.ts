@@ -7,6 +7,10 @@ import { UserSettings } from "../../features/settings/types";
 
 import { store } from "./store";
 
+interface AppState {
+  lastConnectedUId?: string;
+}
+
 interface FirestoreSchema {
   users: UserProfile;
   captures: CaptureMap;
@@ -35,4 +39,10 @@ type AppThunkApiConfig = {
   rejectValue?: unknown;
 };
 
-export type { FirestoreState, FirestoreSchema, RootState, AppThunkApiConfig };
+export type {
+  AppState,
+  FirestoreState,
+  FirestoreSchema,
+  RootState,
+  AppThunkApiConfig,
+};
