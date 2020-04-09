@@ -1,7 +1,10 @@
 import React, { ChangeEvent } from "react";
+import { useDispatch } from "react-redux";
 import clsx from "clsx";
 import map from "lodash/map";
 
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
@@ -10,7 +13,10 @@ import { locations, speciesList } from "../../../models";
 import type { Location, MonsterKey, Species } from "../../../models";
 
 import {
+  toggleCapturedFilter,
+  setCapturedFilterCount,
   useAreaMonsterFilter,
+  useCapturedFilter,
   useCheckedAreaMonsters,
   useCheckedSpeciesMonsters,
   useLocationFilter,
@@ -18,10 +24,11 @@ import {
   useSpeciesMonsterFilter,
 } from "..";
 
-import useStyles from "./ExpandedFilters.styles";
+import useStyles from "./ExpandableFilters.styles";
 
-function ExpandedFilters() {
+function ExpandableFilters() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const checkedAreaMonsters = useCheckedAreaMonsters();
   const checkedSpeciesMonsters = useCheckedSpeciesMonsters();
@@ -33,6 +40,7 @@ function ExpandedFilters() {
     setSpeciesMonsterFilter,
   ] = useSpeciesMonsterFilter();
   const [locationFilter, setLocationFilter] = useLocationFilter();
+  const capturedFilter = useCapturedFilter();
 
   const selectedAreaMonster = checkedAreaMonsters.find(
     (checkedMonster) => checkedMonster.key === areaMonsterFilter
@@ -45,6 +53,7 @@ function ExpandedFilters() {
     selectedAreaMonster && selectedAreaMonster.isUnlocked;
   const isSelectedSpeciesMonsterUnlocked =
     selectedSpeciesMonster && selectedSpeciesMonster.isUnlocked;
+
   function handleSpeciesChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
@@ -67,6 +76,14 @@ function ExpandedFilters() {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     setLocationFilter(event.target.value as Location);
+  }
+
+  function handleCapturedFilterChange() {
+    dispatch(toggleCapturedFilter());
+  }
+
+  function handleCapturedCountChange(event: ChangeEvent<HTMLInputElement>) {
+    dispatch(setCapturedFilterCount(event.target.valueAsNumber));
   }
 
   return (
@@ -193,8 +210,37 @@ function ExpandedFilters() {
           ])}
         </TextField>
       </Grid>
+      <Grid item xs={12} sm={6} md={5} lg={4}>
+        <div className={classes.capturedFilterContainer}>
+          <FormControlLabel
+            label="Remove captured"
+            control={
+              <Checkbox
+                name="Filter captured"
+                checked={capturedFilter.isActive}
+                onChange={handleCapturedFilterChange}
+              />
+            }
+          />
+          <TextField
+            id="capturedFilterCount"
+            label="Count"
+            type="number"
+            disabled={!capturedFilter.isActive}
+            value={capturedFilter.count}
+            onChange={handleCapturedCountChange}
+            inputProps={{
+              min: 1,
+              max: 10,
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </div>
+      </Grid>
     </Grid>
   );
 }
 
-export default ExpandedFilters;
+export default ExpandableFilters;

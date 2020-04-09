@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
+  capturedFilterContainer: {
+    minHeight: 56,
+    display: "flex",
+    padding: theme.spacing(0, 1),
+  },
 }));
 
 export default useStyles;

@@ -49,6 +49,10 @@ const initialState: CaptureState = {
   speciesSpecialMonsters: mappedSpeciesSpecialMonsters,
   pendingCaptureSaves: {},
   textFilter: "",
+  capturedFilter: {
+    isActive: false,
+    count: 10,
+  },
 };
 
 const resetPendings = ({ monsters }: CaptureState) => {
@@ -87,6 +91,15 @@ const slice = createSlice({
       { payload }: PayloadAction<MonsterKey>
     ) => {
       state.speciesMonsterFilter = payload;
+    },
+    toggleCapturedFilter: ({ capturedFilter }) => {
+      capturedFilter.isActive = !capturedFilter.isActive;
+    },
+    setCapturedFilterCount: (
+      { capturedFilter },
+      { payload }: PayloadAction<number>
+    ) => {
+      capturedFilter.count = payload;
     },
   },
   extraReducers: (builder) => {

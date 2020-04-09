@@ -31,6 +31,7 @@ const selectAreaMonsterFilter = (state: RootState) =>
   state.capture.monsterAreaFilter;
 const selectSpeciesMonsterFilter = (state: RootState) =>
   state.capture.speciesMonsterFilter;
+const selectCapturedFilter = (state: RootState) => state.capture.capturedFilter;
 
 const selectAnyPending = createSelector(
   [selectMonsters],
@@ -76,14 +77,29 @@ const filterLocation = (
   }
 };
 
-const selectFilteredMonsters = createSelector(
+const selectCapturedMonsters = createSelector(
+  [selectMonsters, selectUserCaptureMap],
+  (monsters, userCaptureMap) =>
+    userCaptureMap
+      ? monsters.map((monster) => ({
+          ...monster,
+          capturedCount: userCaptureMap[monster.key] || 0,
+        }))
+      : monsters.map((monster) => ({
+          ...monster,
+          capturedCount: 0,
+        }))
+);
+
+const selectFilteredCapturedMonsters = createSelector(
   [
-    selectMonsters,
+    selectCapturedMonsters,
     selectTextFilter,
     selectLocationFilter,
     selectSpeciesFilter,
     selectAreaMonsterFilter,
     selectSpeciesMonsterFilter,
+    selectCapturedFilter,
   ],
   (
     monsters,
@@ -91,7 +107,8 @@ const selectFilteredMonsters = createSelector(
     locationFilter,
     speciesFilter,
     areaMonsterFilter,
-    speciesMonsterFilter
+    speciesMonsterFilter,
+    capturedFilter
   ) =>
     monsters.filter((monster) => {
       const lowercasedTextFilter = textFilter.toLowerCase();
@@ -106,6 +123,8 @@ const selectFilteredMonsters = createSelector(
         (!speciesMonsterFilter ||
           (monsterSpecialSpecies &&
             monsterSpecialSpecies.key === speciesMonsterFilter)) &&
+        (!capturedFilter.isActive ||
+          monster.capturedCount < capturedFilter.count) &&
         filterLocation(monster.locations, locationFilter) &&
         (!textFilter ||
           monster.key.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
@@ -115,20 +134,6 @@ const selectFilteredMonsters = createSelector(
           monster.species.toLowerCase().indexOf(lowercasedTextFilter) >= 0)
       );
     })
-);
-
-const selectFilteredCapturedMonsters = createSelector(
-  [selectFilteredMonsters, selectUserCaptureMap],
-  (monsters, userCaptureMap) =>
-    userCaptureMap
-      ? monsters.map((monster) => ({
-          ...monster,
-          capturedCount: userCaptureMap[monster.key] || 0,
-        }))
-      : monsters.map((monster) => ({
-          ...monster,
-          capturedCount: 0,
-        }))
 );
 
 const selectCheckedAreaSpecialMonsters = createSelector(
@@ -166,6 +171,7 @@ export {
   selectSpeciesFilter,
   selectAreaMonsterFilter,
   selectSpeciesMonsterFilter,
+  selectCapturedFilter,
   selectAnyPending,
   selectUserCaptureMap,
   selectFilteredCapturedMonsters,

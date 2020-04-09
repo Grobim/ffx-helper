@@ -11,13 +11,14 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import {
   useAreaMonsterFilter,
+  useCapturedFilter,
   useLocationFilter,
   useSpeciesFilter,
   useSpeciesMonsterFilter,
   useTextFilter,
 } from "..";
 
-import ExpandedFilters from "./ExpandedFilters";
+import ExpandableFilters from "./ExpandableFilters";
 
 import useStyles from "./MonsterFilters.styles";
 
@@ -31,12 +32,14 @@ function MonsterFilters() {
   const [areaMonsterFilter] = useAreaMonsterFilter();
   const [speciesMonsterFilter] = useSpeciesMonsterFilter();
   const [locationFilter] = useLocationFilter();
+  const { isActive } = useCapturedFilter();
 
   const hasAdditionnalFilter =
     Boolean(speciesFilter) ||
     Boolean(areaMonsterFilter) ||
     Boolean(speciesMonsterFilter) ||
-    Boolean(locationFilter);
+    Boolean(locationFilter) ||
+    isActive;
 
   function handleSearchInputChange(event: ChangeEvent<HTMLInputElement>) {
     setTextFilter(event.target.value);
@@ -67,7 +70,7 @@ function MonsterFilters() {
         </IconButton>
       </div>
       <Collapse in={isExpanded} timeout="auto">
-        <ExpandedFilters />
+        <ExpandableFilters />
       </Collapse>
     </Paper>
   );

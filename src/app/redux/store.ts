@@ -59,7 +59,7 @@ const getFirebaseStore = () => compose(mergeOfflineOverride)(firestoreReducer);
 const getReducerMap = () => ({
   firebase: firebaseReducer as () => FirebaseReducer.Reducer<UserProfile>,
   firestore: getFirebaseStore() as Reducer<FirestoreState>,
-  ...reducers,
+  ...(reducers as typeof reducers),
 });
 
 const getRootReducer = () => {

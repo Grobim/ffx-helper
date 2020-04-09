@@ -19,6 +19,12 @@ interface CaptureState {
   speciesFilter?: Species;
   monsterAreaFilter?: MonsterKey;
   speciesMonsterFilter?: MonsterKey;
+  capturedFilter: CapturedFilter;
+}
+
+interface CapturedFilter {
+  isActive: boolean;
+  count: number;
 }
 
 type CaptureMap = {

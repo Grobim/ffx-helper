@@ -14,4 +14,6 @@ export const {
   updateSpeciesFilter,
   updateAreaMonsterFilter,
   updateSpeciesMonsterFilter,
+  toggleCapturedFilter,
+  setCapturedFilterCount,
 } = slice.actions;
