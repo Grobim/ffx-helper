@@ -1,22 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { getFirebase } from "react-redux-firebase";
+import { isEmpty } from "react-redux-firebase";
+import sourceFirebase from "firebase/app";
 
-import { MappedMonster } from "./types";
+import { AppThunkApiConfig } from "../../app/redux";
+import type { MonsterKey } from "../../models";
+import { selectAuth } from "../auth";
+
+import type { MappedMonster } from "./types";
 
 const triggerSaveCapture = createAsyncThunk<
   void,
   MappedMonster[],
-  { extra: { getFirebase: typeof getFirebase } }
+  AppThunkApiConfig
 >(
   "capture/triggerSaveCapture",
-  async (monsters, { extra: { getFirebase } }) => {
-    const firebase = getFirebase();
-    const firestore = firebase.firestore();
+  async (monsters, { extra: { getFirebase }, getState }) => {
+    const firestore = getFirebase().firestore();
 
-    const auth = firebase.auth().currentUser;
+    const auth = selectAuth(getState());
 
-    if (!auth) {
-      throw new Error("Must be connected to save");
+    if (isEmpty(auth)) {
+      throw new Error("Must be connected to save captures");
     }
 
     const captureMapUpdates = monsters
@@ -31,8 +35,31 @@ const triggerSaveCapture = createAsyncThunk<
 
     const captureMapRef = firestore.collection("captures").doc(auth.uid);
 
-    await captureMapRef.set(captureMapUpdates, { merge: true });
+    return await captureMapRef.set(captureMapUpdates, { merge: true });
   }
 );
 
-export { triggerSaveCapture };
+const triggerResetCapture = createAsyncThunk<
+  void,
+  MonsterKey,
+  AppThunkApiConfig
+>(
+  "capture/triggerResetCapture",
+  async (key: MonsterKey, { extra: { getFirebase }, getState }) => {
+    const firestore = getFirebase().firestore();
+
+    const auth = selectAuth(getState());
+
+    if (isEmpty(auth)) {
+      throw new Error("Must be connected to reset captures");
+    }
+
+    const captureMapRef = firestore.collection("captures").doc(auth.uid);
+
+    return await captureMapRef.update({
+      [key]: sourceFirebase.firestore.FieldValue.delete(),
+    });
+  }
+);
+
+export { triggerSaveCapture, triggerResetCapture };

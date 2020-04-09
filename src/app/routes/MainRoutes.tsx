@@ -1,11 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
+import { Role } from "../../features/auth";
 import Login from "../../features/auth/Login";
 import CaptureDashboard from "../../features/capture/CaptureDashboard";
 import { Home } from "../../features/home/Home";
-import { Role } from "../../features/auth";
-import { UserList } from "../../features/users/UserList";
+import Settings from "../../features/settings/Settings";
+import UserList from "../../features/users/UserList";
 
 import PrivateRoute from "./PrivateRoute";
 
@@ -23,6 +24,9 @@ function MainRoutes() {
       </Route>
       <Route path="/capture">
         <CaptureDashboard />
+      </Route>
+      <Route path="/settings">
+        <Settings />
       </Route>
       <Route path="*">
         <div>404 mamène</div>

@@ -7,7 +7,7 @@ import { useAuth } from "../hooks";
 import { useLocation, useHistory } from "react-router-dom";
 
 interface LoginLocationState {
-  from: { pathname: "/" };
+  from: { pathname: string };
 }
 
 function Login() {

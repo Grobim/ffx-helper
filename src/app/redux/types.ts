@@ -1,18 +1,20 @@
-import { Action, ThunkAction } from "@reduxjs/toolkit";
-import {
-  ExtendedAuthInstance,
-  ExtendedFirebaseInstance,
-  ExtendedStorageInstance,
-} from "react-redux-firebase";
+import { Dispatch } from "@reduxjs/toolkit";
+import { getFirebase } from "react-redux-firebase";
 
 import { UserProfile } from "../../features/auth";
 import { CaptureMap } from "../../features/capture";
+import { UserSettings } from "../../features/settings/types";
 
 import { store } from "./store";
+
+interface AppState {
+  lastConnectedUId?: string;
+}
 
 interface FirestoreSchema {
   users: UserProfile;
   captures: CaptureMap;
+  settings: UserSettings;
 }
 
 interface FirestoreState<T extends Record<string, any> = FirestoreSchema> {
@@ -29,11 +31,18 @@ interface FirestoreState<T extends Record<string, any> = FirestoreSchema> {
 }
 
 type RootState = ReturnType<typeof store.getState>;
-type AppThunk = ThunkAction<
-  void,
-  RootState,
-  ExtendedFirebaseInstance & ExtendedAuthInstance & ExtendedStorageInstance,
-  Action<string>
->;
 
-export type { FirestoreState, FirestoreSchema, RootState, AppThunk };
+type AppThunkApiConfig = {
+  state: RootState;
+  dispatch: Dispatch;
+  extra: { getFirebase: typeof getFirebase };
+  rejectValue?: unknown;
+};
+
+export type {
+  AppState,
+  FirestoreState,
+  FirestoreSchema,
+  RootState,
+  AppThunkApiConfig,
+};

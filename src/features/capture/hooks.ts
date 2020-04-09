@@ -7,19 +7,20 @@ import { useUserId } from "../auth";
 
 import {
   selectAnyPending,
-  selectFilteredCapturedMonsters,
-  selectTextFilter,
-  selectLocationFilter,
-  selectSpeciesFilter,
   selectAreaMonsterFilter,
-  selectSpeciesMonsterFilter,
+  selectCapturedFilter,
   selectCheckedAreaSpecialMonsters,
   selectCheckedSpeciesSpecialMonsters,
-  updateTextFilter,
+  selectFilteredCapturedMonsters,
+  selectLocationFilter,
+  selectSpeciesFilter,
+  selectSpeciesMonsterFilter,
+  selectTextFilter,
+  updateAreaMonsterFilter,
   updateLocationFilter,
   updateSpeciesFilter,
-  updateAreaMonsterFilter,
   updateSpeciesMonsterFilter,
+  updateTextFilter,
 } from ".";
 
 const useAnyPending = () => useSelector(selectAnyPending);
@@ -58,6 +59,8 @@ const useSpeciesMonsterFilter = () =>
     updateSpeciesMonsterFilter
   );
 
+const useCapturedFilter = () => useSelector(selectCapturedFilter);
+
 export {
   useAnyPending,
   useCheckedAreaMonsters,
@@ -68,4 +71,5 @@ export {
   useSpeciesFilter,
   useAreaMonsterFilter,
   useSpeciesMonsterFilter,
+  useCapturedFilter,
 };

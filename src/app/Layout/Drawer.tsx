@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import MaterialDrawer from "@material-ui/core/Drawer";
+import Divider from "@material-ui/core/Divider";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -7,6 +8,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PeopleIcon from "@material-ui/icons/People";
 import PetsIcon from "@material-ui/icons/Pets";
+import SettingsIcon from "@material-ui/icons/Settings";
 import clsx from "clsx";
 import React, {
   ElementRef,
@@ -25,28 +27,28 @@ interface DrawerProps {
   onMenuClose: MouseEventHandler;
 }
 
-interface NavListItem extends Record<string, any> {
+interface NavListItemProps extends Record<string, any> {
   to: string;
   children: ReactChild;
   className: string;
 }
 
 function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
-  const styles = useStyles();
+  const classes = useStyles();
 
   const isAdmin = useIsRole(Role.ADMIN);
 
   function NavListItem(
-    { children, className, ...props }: NavListItem,
+    { children, className, ...props }: NavListItemProps,
     ref: ElementRef<any>
   ) {
     return (
       <Button
-        className={clsx(className, styles.navItem)}
+        className={clsx(className, classes.navItem)}
         component={NavLink}
         onClick={onMenuClose}
         ref={ref}
-        activeClassName={styles.activeLink}
+        activeClassName={classes.activeLink}
         {...props}
       >
         {children}
@@ -56,7 +58,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
 
   const drawer = (
     <div>
-      <div className={styles.toolbar} />
+      <div className={classes.toolbar} />
       <List component="div">
         <ListItem component={forwardRef(NavListItem)} to="/capture">
           <ListItemIcon>
@@ -73,18 +75,27 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
           </ListItem>
         )}
       </List>
+      <Divider />
+      <List component="div">
+        <ListItem component={forwardRef(NavListItem)} to="/settings">
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+        </ListItem>
+      </List>
     </div>
   );
 
   return (
-    <nav className={styles.drawer}>
+    <nav className={classes.drawer}>
       <Hidden mdUp>
         <MaterialDrawer
           variant="temporary"
           open={mobileOpen}
           onClose={onMenuClose}
           classes={{
-            paper: styles.drawerPaper,
+            paper: classes.drawerPaper,
           }}
           ModalProps={{
             keepMounted: true,
@@ -98,7 +109,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
         <MaterialDrawer
           open
           classes={{
-            paper: styles.drawerPaper,
+            paper: classes.drawerPaper,
           }}
           variant="permanent"
           role="navigation"

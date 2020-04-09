@@ -10,18 +10,20 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import SearchIcon from "@material-ui/icons/Search";
 
 import {
-  useTextFilter,
-  useSpeciesFilter,
   useAreaMonsterFilter,
+  useCapturedFilter,
+  useLocationFilter,
+  useSpeciesFilter,
   useSpeciesMonsterFilter,
+  useTextFilter,
 } from "..";
 
-import ExpandedFilters from "./ExpandedFilters";
+import ExpandableFilters from "./ExpandableFilters";
 
-import useStyles from "./MonsterFilters.style";
+import useStyles from "./MonsterFilters.styles";
 
 function MonsterFilters() {
-  const styles = useStyles();
+  const classes = useStyles();
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -29,11 +31,15 @@ function MonsterFilters() {
   const [speciesFilter] = useSpeciesFilter();
   const [areaMonsterFilter] = useAreaMonsterFilter();
   const [speciesMonsterFilter] = useSpeciesMonsterFilter();
+  const [locationFilter] = useLocationFilter();
+  const { isActive } = useCapturedFilter();
 
   const hasAdditionnalFilter =
     Boolean(speciesFilter) ||
     Boolean(areaMonsterFilter) ||
-    Boolean(speciesMonsterFilter);
+    Boolean(speciesMonsterFilter) ||
+    Boolean(locationFilter) ||
+    isActive;
 
   function handleSearchInputChange(event: ChangeEvent<HTMLInputElement>) {
     setTextFilter(event.target.value);
@@ -44,19 +50,19 @@ function MonsterFilters() {
   }
 
   return (
-    <Paper className={styles.root}>
-      <div className={styles.searchBar}>
-        <SearchIcon className={clsx(styles.search)} />
+    <Paper className={classes.root}>
+      <div className={classes.searchBar}>
+        <SearchIcon className={classes.search} />
         <InputBase
           value={textFilter}
-          className={styles.input}
+          className={classes.input}
           onChange={handleSearchInputChange}
           placeholder="Search"
         />
-        <Divider className={styles.divider} orientation="vertical" />
+        <Divider className={classes.divider} orientation="vertical" />
         <IconButton
-          className={clsx(styles.expand, {
-            [styles.hasFilter]: hasAdditionnalFilter,
+          className={clsx(classes.expand, {
+            [classes.hasFilter]: hasAdditionnalFilter,
           })}
           onClick={handleExpandClick}
         >
@@ -64,7 +70,7 @@ function MonsterFilters() {
         </IconButton>
       </div>
       <Collapse in={isExpanded} timeout="auto">
-        <ExpandedFilters />
+        <ExpandableFilters />
       </Collapse>
     </Paper>
   );

@@ -1,8 +1,9 @@
-import { Location, Species } from "./types";
+import { MonsterArena, Species } from "./types";
 
-const locations = Object.keys(Location);
+const monsterArenas = Object.keys(MonsterArena);
 const speciesList = Object.keys(Species);
 
-export * from "./types";
+export * from "./locations";
 export * from "./monsters";
-export { locations, speciesList };
+export * from "./types";
+export { monsterArenas, speciesList };

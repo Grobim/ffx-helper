@@ -1,6 +1,7 @@
 import type {
-  AreaSpecialMonster,
   Location,
+  MonsterArenaMonster,
+  MonsterArena,
   Monster,
   MonsterKey,
   SpecialSpecies,
@@ -10,14 +11,20 @@ import type {
 
 interface CaptureState {
   monsters: MappedMonster[];
-  areaSpecialMonsters: MappedAreaSpecialMonster[];
+  monsterArenaMonsters: MappedMonsterArena[];
   speciesSpecialMonsters: MappedSpeciesSpecialMonster[];
   pendingCaptureSaves: CaptureMap;
   textFilter: string;
   locationFilter?: Location;
   speciesFilter?: Species;
-  areaMonsterFilter?: MonsterKey;
+  monsterAreaFilter?: MonsterKey;
   speciesMonsterFilter?: MonsterKey;
+  capturedFilter: CapturedFilter;
+}
+
+interface CapturedFilter {
+  isActive: boolean;
+  count: number;
 }
 
 type CaptureMap = {
@@ -29,9 +36,9 @@ interface MappedMonster extends Monster {
   pendingCaptureCount: number;
 }
 
-interface MappedAreaSpecialMonster extends AreaSpecialMonster {
+interface MappedMonsterArena extends MonsterArenaMonster {
   monsterList: MonsterKey[];
-  location: Location;
+  monsterArenas: MonsterArena;
 }
 
 interface MappedSpeciesSpecialMonster extends SpeciesSpecialMonster {
@@ -39,9 +46,4 @@ interface MappedSpeciesSpecialMonster extends SpeciesSpecialMonster {
   targetSpecies: SpecialSpecies;
 }
 
-export type {
-  CaptureMap,
-  CaptureState,
-  MappedMonster,
-  MappedAreaSpecialMonster,
-};
+export type { CaptureMap, CaptureState, MappedMonster, MappedMonsterArena };

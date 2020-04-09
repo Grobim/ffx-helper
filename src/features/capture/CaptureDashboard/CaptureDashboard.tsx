@@ -1,12 +1,14 @@
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { isEmpty } from "react-redux-firebase";
+import { forceCheck } from "react-lazyload";
+
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Zoom from "@material-ui/core/Zoom";
 import SaveIcon from "@material-ui/icons/Save";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { isEmpty } from "react-redux-firebase";
 
 import { useAuth } from "../../auth";
 
@@ -23,12 +25,14 @@ import useStyles from "./CaptureDashboard.styles";
 
 function CaptureDashboard() {
   const dispatch = useDispatch();
-  const styles = useStyles();
+  const classes = useStyles();
 
   const auth = useAuth();
 
   const monsters = useSyncedFilteredCapturedMonsters();
   const hasAnyPending = useAnyPending();
+
+  useEffect(forceCheck, [monsters]);
 
   function reset() {
     dispatch(resetPendings());
@@ -40,12 +44,12 @@ function CaptureDashboard() {
 
   return (
     <div className="CaptureDashboard">
-      <div className={styles.header}>
-        <Typography className={styles.title} variant="h4" noWrap>
+      <div className={classes.header}>
+        <Typography className={classes.title} variant="h4" noWrap gutterBottom>
           Capture
         </Typography>
         <Button
-          className={styles.button}
+          className={classes.button}
           variant="contained"
           color="secondary"
           onClick={reset}
@@ -58,14 +62,14 @@ function CaptureDashboard() {
         <Grid xs={12} item>
           <MonsterFilters />
         </Grid>
-        {monsters.map(({ key, ...monster }) => (
-          <Grid key={key} item xs={6} sm={4} lg={3}>
-            <MonsterCard monsterKey={key} {...monster} />
+        {monsters.map((monster) => (
+          <Grid key={monster.key} item xs={6} sm={4} lg={3}>
+            <MonsterCard monster={monster} />
           </Grid>
         ))}
       </Grid>
       <Zoom in={hasAnyPending && !isEmpty(auth)}>
-        <Fab className={styles.fab} color="primary" onClick={save}>
+        <Fab className={classes.fab} color="primary" onClick={save}>
           <SaveIcon />
         </Fab>
       </Zoom>
