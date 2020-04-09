@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    padding: theme.spacing(2, 2, 0),
+    padding: theme.spacing(1, 1, 0),
   },
   title: {
     overflow: "hidden",
@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "94%",
   },
   content: {
-    padding: theme.spacing(0, 2, 2, 2),
+    padding: theme.spacing(0, 1, 1),
   },
   media: {
-    height: 170,
+    height: 150,
     margin: theme.spacing(1),
     backgroundSize: "contain",
   },

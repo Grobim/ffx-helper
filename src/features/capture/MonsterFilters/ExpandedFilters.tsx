@@ -1,18 +1,20 @@
 import React, { ChangeEvent } from "react";
 import clsx from "clsx";
+import map from "lodash/map";
 
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
-import { speciesList } from "../../../models";
-import type { MonsterKey, Species } from "../../../models";
+import { locations, speciesList } from "../../../models";
+import type { Location, MonsterKey, Species } from "../../../models";
 
 import {
+  useAreaMonsterFilter,
   useCheckedAreaMonsters,
   useCheckedSpeciesMonsters,
+  useLocationFilter,
   useSpeciesFilter,
-  useAreaMonsterFilter,
   useSpeciesMonsterFilter,
 } from "..";
 
@@ -30,6 +32,7 @@ function ExpandedFilters() {
     speciesMonsterFilter,
     setSpeciesMonsterFilter,
   ] = useSpeciesMonsterFilter();
+  const [locationFilter, setLocationFilter] = useLocationFilter();
 
   const selectedAreaMonster = checkedAreaMonsters.find(
     (checkedMonster) => checkedMonster.key === areaMonsterFilter
@@ -58,6 +61,12 @@ function ExpandedFilters() {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     setSpeciesMonsterFilter(event.target.value as MonsterKey);
+  }
+
+  function handleLocationChange(
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    setLocationFilter(event.target.value as Location);
   }
 
   return (
@@ -93,7 +102,7 @@ function ExpandedFilters() {
                 [classes.selectItemSuccess]: monster.isUnlocked,
               })}
             >
-              {monster.name}
+              <span className={classes.selectOptionLabel}>{monster.name}</span>
             </MenuItem>
           ))}
         </TextField>
@@ -124,7 +133,7 @@ function ExpandedFilters() {
                 [classes.selectItemSuccess]: monster.isUnlocked,
               })}
             >
-              {monster.name}
+              <span className={classes.selectOptionLabel}>{monster.name}</span>
             </MenuItem>
           ))}
         </TextField>
@@ -144,9 +153,44 @@ function ExpandedFilters() {
           </MenuItem>
           {speciesList.map((species) => (
             <MenuItem key={species} value={species}>
-              {species}
+              <span className={classes.selectOptionLabel}>{species}</span>
             </MenuItem>
           ))}
+        </TextField>
+      </Grid>
+      <Grid item xs={12} sm={6} md={5} lg={4}>
+        <TextField
+          id="locationSelect"
+          select
+          fullWidth
+          value={locationFilter || ""}
+          onChange={handleLocationChange}
+          label="Location"
+          variant="outlined"
+        >
+          <MenuItem key="" value="">
+            &nbsp;
+          </MenuItem>
+          {map(locations, (mainLocation) => [
+            <MenuItem key={mainLocation.key} value={mainLocation.key}>
+              <span className={classes.selectOptionLabel}>
+                {mainLocation.key}
+              </span>
+            </MenuItem>,
+            ...((mainLocation.subLocations &&
+              mainLocation.subLocations.map((subLocation) => (
+                <MenuItem
+                  key={subLocation}
+                  value={subLocation}
+                  className={classes.subLocationItem}
+                >
+                  <span className={classes.selectOptionLabel}>
+                    {subLocation}
+                  </span>
+                </MenuItem>
+              ))) ||
+              []),
+          ])}
         </TextField>
       </Grid>
     </Grid>

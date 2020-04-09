@@ -7,6 +7,15 @@ const useStyles = makeStyles((theme) => ({
   selectItemSuccess: {
     color: theme.palette.success.main,
   },
+  subLocationItem: {
+    paddingLeft: theme.spacing(3),
+  },
+  selectOptionLabel: {
+    width: "100%",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+  },
 }));
 
 export default useStyles;

@@ -1,10 +1,19 @@
 import { createSelector } from "@reduxjs/toolkit";
+import find from "lodash/find";
+import intersection from "lodash/intersection";
 
 import { RootState } from "../../app/redux";
 import { getSelectFirestoreDataOrOrdered } from "../../app/redux/selectors";
+
 import {
+  locations,
   monsterAreaMonsters,
   speciesSpecialMonsters,
+} from "../../models";
+import type {
+  Location,
+  MainLocation,
+  MainLocationKey,
   SpecialSpecies,
 } from "../../models";
 
@@ -34,6 +43,39 @@ const selectUserCaptureMap = createSelector(
   (uid, firestoreData) => firestoreData.captures && firestoreData.captures[uid]
 );
 
+const filterLocation = (
+  monsterLocations: Location[] = [],
+  locationFilter?: Location
+) => {
+  if (!locationFilter) {
+    return true;
+  }
+
+  let mainLocation: MainLocation | undefined =
+    locations[locationFilter as MainLocationKey];
+
+  if (mainLocation) {
+    return (
+      intersection(monsterLocations, [
+        ...(mainLocation.subLocations || []),
+        mainLocation.key,
+      ]).length > 0
+    );
+  } else {
+    mainLocation = find(locations, (mainLoc) => {
+      return (
+        !!mainLoc.subLocations &&
+        mainLoc.subLocations.indexOf(locationFilter) > -1
+      );
+    }) as MainLocation;
+
+    return (
+      intersection(monsterLocations, [locationFilter, mainLocation.key])
+        .length > 0
+    );
+  }
+};
+
 const selectFilteredMonsters = createSelector(
   [
     selectMonsters,
@@ -57,7 +99,6 @@ const selectFilteredMonsters = createSelector(
         speciesSpecialMonsters[(monster.species as unknown) as SpecialSpecies];
 
       return (
-        (!locationFilter || monster.monsterArena === locationFilter) &&
         (!speciesFilter || monster.species === speciesFilter) &&
         (!areaMonsterFilter ||
           monsterAreaMonsters[monster.monsterArena].key ===
@@ -65,6 +106,7 @@ const selectFilteredMonsters = createSelector(
         (!speciesMonsterFilter ||
           (monsterSpecialSpecies &&
             monsterSpecialSpecies.key === speciesMonsterFilter)) &&
+        filterLocation(monster.locations, locationFilter) &&
         (!textFilter ||
           monster.key.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||
           monster.name.toLowerCase().indexOf(lowercasedTextFilter) >= 0 ||

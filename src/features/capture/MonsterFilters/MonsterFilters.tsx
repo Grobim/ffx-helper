@@ -10,10 +10,11 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import SearchIcon from "@material-ui/icons/Search";
 
 import {
-  useTextFilter,
-  useSpeciesFilter,
   useAreaMonsterFilter,
+  useLocationFilter,
+  useSpeciesFilter,
   useSpeciesMonsterFilter,
+  useTextFilter,
 } from "..";
 
 import ExpandedFilters from "./ExpandedFilters";
@@ -29,11 +30,13 @@ function MonsterFilters() {
   const [speciesFilter] = useSpeciesFilter();
   const [areaMonsterFilter] = useAreaMonsterFilter();
   const [speciesMonsterFilter] = useSpeciesMonsterFilter();
+  const [locationFilter] = useLocationFilter();
 
   const hasAdditionnalFilter =
     Boolean(speciesFilter) ||
     Boolean(areaMonsterFilter) ||
-    Boolean(speciesMonsterFilter);
+    Boolean(speciesMonsterFilter) ||
+    Boolean(locationFilter);
 
   function handleSearchInputChange(event: ChangeEvent<HTMLInputElement>) {
     setTextFilter(event.target.value);

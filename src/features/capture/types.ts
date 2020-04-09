@@ -1,4 +1,5 @@
 import type {
+  Location,
   MonsterArenaMonster,
   MonsterArena,
   Monster,
@@ -14,7 +15,7 @@ interface CaptureState {
   speciesSpecialMonsters: MappedSpeciesSpecialMonster[];
   pendingCaptureSaves: CaptureMap;
   textFilter: string;
-  locationFilter?: MonsterArena;
+  locationFilter?: Location;
   speciesFilter?: Species;
   monsterAreaFilter?: MonsterKey;
   speciesMonsterFilter?: MonsterKey;

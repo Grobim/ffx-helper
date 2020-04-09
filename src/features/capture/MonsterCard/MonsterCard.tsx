@@ -62,7 +62,7 @@ function MonsterCard({
   }
 
   return (
-    <LazyLoad height={362} throttle={100} offset={500}>
+    <LazyLoad height={334} throttle={100} offset={500}>
       <Fade in>
         <Card>
           <CardActionArea

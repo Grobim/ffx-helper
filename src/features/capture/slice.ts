@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import groupBy from "lodash/groupBy";
 
 import {
+  Location,
   monsterAreaMonsters,
   monsters,
   speciesSpecialMonsters,
@@ -69,7 +70,7 @@ const slice = createSlice({
     updateTextFilter: (state, { payload }: PayloadAction<string>) => {
       state.textFilter = payload;
     },
-    updateLocationFilter: (state, { payload }: PayloadAction<MonsterArena>) => {
+    updateLocationFilter: (state, { payload }: PayloadAction<Location>) => {
       state.locationFilter = payload;
     },
     updateSpeciesFilter: (state, { payload }: PayloadAction<Species>) => {

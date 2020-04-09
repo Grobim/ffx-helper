@@ -27,7 +27,7 @@ interface DrawerProps {
   onMenuClose: MouseEventHandler;
 }
 
-interface NavListItem extends Record<string, any> {
+interface NavListItemProps extends Record<string, any> {
   to: string;
   children: ReactChild;
   className: string;
@@ -39,7 +39,7 @@ function Drawer({ mobileOpen, onMenuClose }: DrawerProps) {
   const isAdmin = useIsRole(Role.ADMIN);
 
   function NavListItem(
-    { children, className, ...props }: NavListItem,
+    { children, className, ...props }: NavListItemProps,
     ref: ElementRef<any>
   ) {
     return (

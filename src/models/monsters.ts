@@ -1,10 +1,7 @@
-// TODO
-// Floating death pic
-
 import abyssalWormUrl from "../assets/images/monsters/abyssalWorm.jpg";
 import achelousUrl from "../assets/images/monsters/achelous.png";
 import adamantoiseUrl from "../assets/images/monsters/adamantoise.png";
-import aerogueUrl from "../assets/images/monsters/aerogue.png";
+import aerougeUrl from "../assets/images/monsters/aerouge.png";
 import alcyoneUrl from "../assets/images/monsters/alcyone.png";
 import ahrimanUrl from "../assets/images/monsters/ahriman.png";
 import anacondaurUrl from "../assets/images/monsters/anacondaur.png";
@@ -104,14 +101,14 @@ import yowieUrl from "../assets/images/monsters/yowie.png";
 import zaurusUrl from "../assets/images/monsters/zaurus.png";
 import zuUrl from "../assets/images/monsters/zu.png";
 
-import {
-  MonsterArena,
-  MonsterKey,
-  Species,
-  SpeciesSpecialMonster,
-} from "./types";
+import { Location, MonsterArena, MonsterKey, Species } from "./types";
 
-import type { MonsterArenaMonster, Monster, SpecialSpecies } from "./types";
+import type {
+  Monster,
+  MonsterArenaMonster,
+  SpeciesSpecialMonster,
+  SpecialSpecies,
+} from "./types";
 
 const monsterAreaMonsters: Record<MonsterArena, MonsterArenaMonster> = {
   [MonsterArena.BESAID]: {
@@ -302,6 +299,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.HAIZHE,
     imgUrl: achelousUrl,
+    locations: [Location.MONT_GAGAZET_CAVE],
   },
   {
     key: MonsterKey.ADAMANTOISE,
@@ -309,13 +307,15 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.INSIDE_SIN,
     species: Species.ADAMANTOISE,
     imgUrl: adamantoiseUrl,
+    locations: [Location.INSIDE_SIN, Location.OMEGA_RUINS],
   },
   {
-    key: MonsterKey.AEROGUE,
+    key: MonsterKey.AEROUGE,
     name: "Aroj",
     monsterArena: MonsterArena.THUNDER_PLAINS,
     species: Species.IMP,
-    imgUrl: aerogueUrl,
+    imgUrl: aerougeUrl,
+    locations: [Location.THUNDER_PLAINS],
   },
   {
     key: MonsterKey.AHRIMAN,
@@ -323,6 +323,11 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.EVIL_EYE,
     imgUrl: ahrimanUrl,
+    locations: [
+      Location.INSIDE_SIN,
+      Location.MONT_GAGAZET_CAVE,
+      Location.ZANARKAND,
+    ],
   },
   {
     key: MonsterKey.ALCYONE,
@@ -330,6 +335,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.BIKANEL,
     species: Species.BIRD,
     imgUrl: alcyoneUrl,
+    locations: [Location.BIKANEL],
   },
   {
     key: MonsterKey.ANACONDAUR,
@@ -337,6 +343,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.CALM_LANDS,
     species: Species.BASILISK,
     imgUrl: anacondaurUrl,
+    locations: [Location.CALM_LANDS],
   },
   {
     key: MonsterKey.BANDERSNATCH,
@@ -344,6 +351,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.LUPINE,
     imgUrl: bandersnatchUrl,
+    locations: [Location.MONT_GAGAZET],
   },
   {
     key: MonsterKey.BASHURA,
@@ -351,6 +359,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.OGRE,
     imgUrl: bashuraUrl,
+    locations: [Location.MONT_GAGAZET, Location.ZANARKAND],
   },
   {
     key: MonsterKey.BASILISK,
@@ -358,6 +367,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.DJOSE_ROAD,
     species: Species.BASILISK,
     imgUrl: basiliskUrl,
+    locations: [Location.DJOSE_HIGHROAD],
   },
   {
     key: MonsterKey.BARBATOS,
@@ -365,6 +375,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.INSIDE_SIN,
     species: Species.ARMOR,
     imgUrl: barbatosUrl,
+    locations: [Location.INSIDE_SIN],
   },
   {
     key: MonsterKey.BEHEMOTH,
@@ -372,6 +383,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.BEHEMOTH,
     imgUrl: behemothUrl,
+    locations: [Location.MONT_GAGAZET_CAVE, Location.ZANARKAND],
   },
   {
     key: MonsterKey.BEHEMOTH_KING,
@@ -379,6 +391,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.INSIDE_SIN,
     species: Species.BEHEMOTH,
     imgUrl: behemothKingUrl,
+    locations: [Location.INSIDE_SIN],
   },
   {
     key: MonsterKey.BITE_BUG,
@@ -386,6 +399,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.DJOSE_ROAD,
     species: Species.WASP,
     imgUrl: biteBugUrl,
+    locations: [Location.DJOSE_HIGHROAD, Location.MOONFLOW],
   },
   {
     key: MonsterKey.BLACK_ELEMENT,
@@ -393,6 +407,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.ELEMENTAL,
     imgUrl: blackElementUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.BLUE_ELEMENT,
@@ -400,6 +415,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.ELEMENTAL,
     imgUrl: blueElementUrl,
+    locations: [Location.MACALANIA_WOODS],
   },
   {
     key: MonsterKey.BOMB,
@@ -407,6 +423,12 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MI_IHEN_HIGHROAD,
     species: Species.BOMB,
     imgUrl: bombUrl,
+    locations: [
+      Location.AIRSHIP,
+      Location.HOME,
+      Location.MI_IHEN_HIGHROAD,
+      Location.MUSHROOM_ROCK_ROAD,
+    ],
   },
   {
     key: MonsterKey.BUER,
@@ -414,6 +436,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.THUNDER_PLAINS,
     species: Species.EVIL_EYE,
     imgUrl: buerUrl,
+    locations: [Location.THUNDER_PLAINS],
   },
   {
     key: MonsterKey.BUNYIP,
@@ -421,6 +444,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.DJOSE_ROAD,
     species: Species.HELM,
     imgUrl: bunyipUrl,
+    locations: [Location.DJOSE_HIGHROAD, Location.MOONFLOW],
   },
   {
     key: MonsterKey.CACTUAR,
@@ -428,6 +452,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.BIKANEL,
     species: Species.CACTUAR,
     imgUrl: cactuarUrl,
+    locations: [Location.CACTUAR_NATION],
   },
   {
     key: MonsterKey.CHIMERA,
@@ -435,6 +460,11 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.CHIMERA,
     imgUrl: chimeraUrl,
+    locations: [
+      Location.HOME,
+      Location.MACALANIA_WOODS,
+      Location.MI_IHEN_HIGHROAD,
+    ],
   },
   {
     key: MonsterKey.CHIMERA_BRAIN,
@@ -442,6 +472,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.CALM_LANDS,
     species: Species.CHIMERA,
     imgUrl: chimeraBrainUrl,
+    locations: [Location.CALM_LANDS],
   },
   {
     key: MonsterKey.COEURL,
@@ -449,6 +480,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.CALM_LANDS,
     species: Species.COEURL,
     imgUrl: coeurlUrl,
+    locations: [Location.CALM_LANDS, Location.CAVERN_OF_THE_STOLEN_FAYTH],
   },
   {
     key: MonsterKey.CONDOR,
@@ -456,6 +488,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.BESAID,
     species: Species.BIRD,
     imgUrl: condorUrl,
+    locations: [Location.BESAID, Location.BESAID_WATERFALL_WAY],
   },
   {
     key: MonsterKey.DARK_ELEMENT,
@@ -463,6 +496,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.STOLEN_FAYTH_CAVERN,
     species: Species.ELEMENTAL,
     imgUrl: darkElementUrl,
+    locations: [Location.CAVERN_OF_THE_STOLEN_FAYTH],
   },
   {
     key: MonsterKey.DARK_FLAN,
@@ -470,6 +504,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.FLAN,
     imgUrl: darkFlanUrl,
+    locations: [Location.MONT_GAGAZET_CAVE, Location.ZANARKAND],
   },
   {
     key: MonsterKey.DEMONOLITH,
@@ -477,6 +512,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.INSIDE_SIN,
     species: Species.DOOMSTONE,
     imgUrl: demonolithUrl,
+    locations: [Location.INSIDE_SIN, Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.DINGO,
@@ -484,6 +520,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.BESAID,
     species: Species.LUPINE,
     imgUrl: dingoUrl,
+    locations: [Location.BESAID, Location.BESAID_WATERFALL_WAY],
   },
   {
     key: MonsterKey.DINONIX,
@@ -491,6 +528,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.KILIKA,
     species: Species.REPTILE,
     imgUrl: dinonixUrl,
+    locations: [Location.KILIKA_WOODS],
   },
   {
     key: MonsterKey.DUAL_HORN,
@@ -498,6 +536,12 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MI_IHEN_HIGHROAD,
     species: Species.RUMINANT,
     imgUrl: dualHornUrl,
+    locations: [
+      Location.AIRSHIP,
+      Location.HOME,
+      Location.MI_IHEN_HIGHROAD,
+      Location.MUSHROOM_ROCK_ROAD,
+    ],
   },
   {
     key: MonsterKey.EPAAJ,
@@ -505,6 +549,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.STOLEN_FAYTH_CAVERN,
     species: Species.BLADE,
     imgUrl: epaajUrl,
+    locations: [Location.CAVERN_OF_THE_STOLEN_FAYTH],
   },
   {
     key: MonsterKey.EVIL_EYE,
@@ -512,6 +557,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.EVIL_EYE,
     imgUrl: evilEyeUrl,
+    locations: [Location.AIRSHIP, Location.HOME, Location.LAKE_MACALANIA],
   },
   {
     key: MonsterKey.EXORAY,
@@ -519,6 +565,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.INSIDE_SIN,
     species: Species.FUNGUS,
     imgUrl: exorayUrl,
+    locations: [Location.INSIDE_SIN],
   },
   {
     key: MonsterKey.FLAME_FLAN,
@@ -526,6 +573,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.CALM_LANDS,
     species: Species.FLAN,
     imgUrl: flameFlanUrl,
+    locations: [Location.CALM_LANDS],
   },
   {
     key: MonsterKey.FLOATING_DEATH,
@@ -533,6 +581,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.EVIL_EYE,
     imgUrl: ahrimanUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.FLOATING_EYE,
@@ -540,6 +589,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MI_IHEN_HIGHROAD,
     species: Species.EVIL_EYE,
     imgUrl: floatingEyeUrl,
+    locations: [Location.MI_IHEN_HIGHROAD, Location.MUSHROOM_ROCK_ROAD],
   },
   {
     key: MonsterKey.FUNGUAR,
@@ -547,6 +597,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MUSHROOM_ROCK_ROAD,
     species: Species.FUNGUS,
     imgUrl: funguarUrl,
+    locations: [Location.DJOSE_HIGHROAD, Location.MUSHROOM_ROCK_ROAD],
   },
   {
     key: MonsterKey.GANDAREWA,
@@ -554,6 +605,11 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MUSHROOM_ROCK_ROAD,
     species: Species.IMP,
     imgUrl: gandarewaUrl,
+    locations: [
+      Location.DJOSE_HIGHROAD,
+      Location.MOONFLOW,
+      Location.MUSHROOM_ROCK_ROAD,
+    ],
   },
   {
     key: MonsterKey.GARM,
@@ -561,6 +617,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.DJOSE_ROAD,
     species: Species.LUPINE,
     imgUrl: garmUrl,
+    locations: [Location.DJOSE_HIGHROAD, Location.MOONFLOW],
   },
   {
     key: MonsterKey.GARUDA,
@@ -568,6 +625,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MUSHROOM_ROCK_ROAD,
     species: Species.ROC,
     imgUrl: garudaUrl,
+    locations: [Location.BESAID_WATERFALL_WAY],
   },
   {
     key: MonsterKey.GEMINI_CLUB,
@@ -575,6 +633,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.INSIDE_SIN,
     species: Species.IRON_GIANT,
     imgUrl: geminiUrl,
+    locations: [Location.INSIDE_SIN, Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.GEMINI_SWORD,
@@ -582,6 +641,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.INSIDE_SIN,
     species: Species.IRON_GIANT,
     imgUrl: ironGiantUrl,
+    locations: [Location.INSIDE_SIN, Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.GHOST,
@@ -589,6 +649,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.STOLEN_FAYTH_CAVERN,
     species: Species.REVENANT,
     imgUrl: ghostUrl,
+    locations: [Location.CAVERN_OF_THE_STOLEN_FAYTH],
   },
   {
     key: MonsterKey.GOLD_ELEMENT,
@@ -596,6 +657,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.THUNDER_PLAINS,
     species: Species.ELEMENTAL,
     imgUrl: goldElementUrl,
+    locations: [Location.THUNDER_PLAINS],
   },
   {
     key: MonsterKey.GRAT,
@@ -603,6 +665,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.PLANT,
     imgUrl: gratUrl,
+    locations: [Location.MONT_GAGAZET_MOUNTAINS],
   },
   {
     key: MonsterKey.GREAT_MALBORO,
@@ -610,6 +673,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.INSIDE_SIN,
     species: Species.MALBORO,
     imgUrl: greatMalboroUrl,
+    locations: [Location.INSIDE_SIN, Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.GRENADE,
@@ -617,6 +681,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.BOMB,
     imgUrl: grenadeUrl,
+    locations: [Location.MONT_GAGAZET_MOUNTAINS],
   },
   {
     key: MonsterKey.GRENDEL,
@@ -624,6 +689,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.RUMINANT,
     imgUrl: grendelUrl,
+    locations: [Location.MONT_GAGAZET_CAVE, Location.ZANARKAND],
   },
   {
     key: MonsterKey.HALMA,
@@ -631,6 +697,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.HELM,
     imgUrl: halmaUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.ICE_FLAN,
@@ -638,6 +705,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.FLAN,
     imgUrl: iceFlanUrl,
+    locations: [Location.LAKE_MACALANIA],
   },
   {
     key: MonsterKey.IMP,
@@ -645,6 +713,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.STOLEN_FAYTH_CAVERN,
     species: Species.IMP,
     imgUrl: impUrl,
+    locations: [Location.CAVERN_OF_THE_STOLEN_FAYTH, Location.MONT_GAGAZET],
   },
   {
     key: MonsterKey.IGUION,
@@ -652,6 +721,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.REPTILE,
     imgUrl: iguionUrl,
+    locations: [Location.MACALANIA_WOODS],
   },
   {
     key: MonsterKey.QACTUAR,
@@ -659,6 +729,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.THUNDER_PLAINS,
     species: Species.CACTUAR,
     imgUrl: qactuarUrl,
+    locations: [Location.THUNDER_PLAINS],
   },
   {
     key: MonsterKey.KILLER_BEE,
@@ -666,6 +737,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.KILIKA,
     species: Species.WASP,
     imgUrl: killerBeeUrl,
+    locations: [Location.KILIKA_WOODS],
   },
   {
     key: MonsterKey.KUSARIQQU,
@@ -673,6 +745,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.THUNDER_PLAINS,
     species: Species.DRAKE,
     imgUrl: kusariqquUrl,
+    locations: [Location.THUNDER_PLAINS],
   },
   {
     key: MonsterKey.IPIRIA,
@@ -680,6 +753,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MI_IHEN_HIGHROAD,
     species: Species.REPTILE,
     imgUrl: ipiriaUrl,
+    locations: [Location.MI_IHEN_HIGHROAD_OLDROAD, Location.MUSHROOM_ROCK_ROAD],
   },
   {
     key: MonsterKey.IRON_GIANT,
@@ -687,6 +761,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.THUNDER_PLAINS,
     species: Species.IRON_GIANT,
     imgUrl: ironGiantUrl,
+    locations: [Location.THUNDER_PLAINS],
   },
   {
     key: MonsterKey.LAMASHTU,
@@ -694,6 +769,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MUSHROOM_ROCK_ROAD,
     species: Species.DRAKE,
     imgUrl: lamashtuUrl,
+    locations: [Location.DJOSE_HIGHROAD, Location.MUSHROOM_ROCK_ROAD],
   },
   {
     key: MonsterKey.LARVA,
@@ -701,6 +777,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.THUNDER_PLAINS,
     species: Species.LARVA,
     imgUrl: larvaUrl,
+    locations: [Location.THUNDER_PLAINS],
   },
   {
     key: MonsterKey.MACHEA,
@@ -708,6 +785,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.BLADE,
     imgUrl: macheaUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.MAELSPIKE,
@@ -715,6 +793,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.DINOFISH,
     imgUrl: maelspikeUrl,
+    locations: [Location.MONT_GAGAZET_CAVE],
   },
   {
     key: MonsterKey.MAFDET,
@@ -722,6 +801,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.HELM,
     imgUrl: mafdetUrl,
+    locations: [Location.LAKE_MACALANIA],
   },
   {
     key: MonsterKey.MALBORO,
@@ -729,6 +809,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.CALM_LANDS,
     species: Species.MALBORO,
     imgUrl: malboroUrl,
+    locations: [Location.CALM_LANDS, Location.CAVERN_OF_THE_STOLEN_FAYTH],
   },
   {
     key: MonsterKey.MANDRAGORA,
@@ -736,6 +817,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.OCHU,
     imgUrl: mandragoraUrl,
+    locations: [Location.MONT_GAGAZET_CAVE, Location.ZANARKAND],
   },
   {
     key: MonsterKey.MASTER_COEURL,
@@ -743,6 +825,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.COEURL,
     imgUrl: masterCoeurlUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.MASTER_TONBERRY,
@@ -750,6 +833,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.TONBERRY,
     imgUrl: masterTonberryUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.MELUSINE,
@@ -757,6 +841,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.THUNDER_PLAINS,
     species: Species.REPTILE,
     imgUrl: melusineUrl,
+    locations: [Location.THUNDER_PLAINS],
   },
   {
     key: MonsterKey.MI_IHEN_FANG,
@@ -764,6 +849,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MI_IHEN_HIGHROAD,
     species: Species.LUPINE,
     imgUrl: miIhenFangUrl,
+    locations: [Location.MI_IHEN_HIGHROAD],
   },
   {
     key: MonsterKey.MURUSSU,
@@ -771,6 +857,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.HELM,
     imgUrl: murussuUrl,
+    locations: [Location.MACALANIA_WOODS],
   },
   {
     key: MonsterKey.MUSHUSSU,
@@ -778,6 +865,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.BIKANEL,
     species: Species.DRAKE,
     imgUrl: mushussuUrl,
+    locations: [Location.BIKANEL],
   },
   {
     key: MonsterKey.NEBIROS,
@@ -785,6 +873,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.CALM_LANDS,
     species: Species.WASP,
     imgUrl: nebirosUrl,
+    locations: [Location.CALM_LANDS],
   },
   {
     key: MonsterKey.NIDHOGG,
@@ -792,6 +881,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.STOLEN_FAYTH_CAVERN,
     species: Species.DRAKE,
     imgUrl: nidhoggUrl,
+    locations: [Location.CAVERN_OF_THE_STOLEN_FAYTH, Location.MONT_GAGAZET],
   },
   {
     key: MonsterKey.OCHU,
@@ -799,6 +889,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.DJOSE_ROAD,
     species: Species.OCHU,
     imgUrl: ochuUrl,
+    locations: [Location.MOONFLOW],
   },
   {
     key: MonsterKey.OGRE,
@@ -806,6 +897,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.CALM_LANDS,
     species: Species.OGRE,
     imgUrl: ogreUrl,
+    locations: [Location.CALM_LANDS],
   },
   {
     key: MonsterKey.PUROBOROS,
@@ -813,6 +905,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.BOMB,
     imgUrl: puroborosUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.RAGORA,
@@ -820,6 +913,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.KILIKA,
     species: Species.PLANT,
     imgUrl: ragoraUrl,
+    locations: [Location.KILIKA_WOODS],
   },
   {
     key: MonsterKey.RALDO,
@@ -827,6 +921,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MI_IHEN_HIGHROAD,
     species: Species.HELM,
     imgUrl: raldoUrl,
+    locations: [Location.MI_IHEN_HIGHROAD],
   },
   {
     key: MonsterKey.RAPTOR,
@@ -834,6 +929,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MUSHROOM_ROCK_ROAD,
     species: Species.REPTILE,
     imgUrl: raptorUrl,
+    locations: [Location.DJOSE_HIGHROAD, Location.MUSHROOM_ROCK_ROAD],
   },
   {
     key: MonsterKey.RED_ELEMENT,
@@ -841,6 +937,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MUSHROOM_ROCK_ROAD,
     species: Species.ELEMENTAL,
     imgUrl: redElementUrl,
+    locations: [Location.MUSHROOM_ROCK_ROAD],
   },
   {
     key: MonsterKey.SAND_WOLF,
@@ -848,6 +945,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.BIKANEL,
     species: Species.LUPINE,
     imgUrl: sandWolfUrl,
+    locations: [Location.BIKANEL],
   },
   {
     key: MonsterKey.SAND_WORM,
@@ -855,6 +953,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.BIKANEL,
     species: Species.WORM,
     imgUrl: sandWormUrl,
+    locations: [Location.BIKANEL],
   },
   {
     key: MonsterKey.SHRED,
@@ -862,6 +961,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.CALM_LANDS,
     species: Species.HELM,
     imgUrl: shredUrl,
+    locations: [Location.CALM_LANDS],
   },
   {
     key: MonsterKey.SIMURGH,
@@ -869,6 +969,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.DJOSE_ROAD,
     species: Species.BIRD,
     imgUrl: simurghUrl,
+    locations: [Location.DJOSE_HIGHROAD],
   },
   {
     key: MonsterKey.SKOLL,
@@ -876,6 +977,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.CALM_LANDS,
     species: Species.LUPINE,
     imgUrl: skollUrl,
+    locations: [Location.CALM_LANDS],
   },
   {
     key: MonsterKey.SNOW_FLAN,
@@ -883,6 +985,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.DJOSE_ROAD,
     species: Species.FLAN,
     imgUrl: snowFlanUrl,
+    locations: [Location.DJOSE_HIGHROAD],
   },
   {
     key: MonsterKey.SNOW_WOLF,
@@ -890,6 +993,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.LUPINE,
     imgUrl: snowWolfUrl,
+    locations: [Location.LAKE_MACALANIA],
   },
   {
     key: MonsterKey.SPIRIT,
@@ -897,6 +1001,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.LARVA,
     imgUrl: spiritUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.SPLASHER,
@@ -904,6 +1009,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MONT_GAGAZET,
     species: Species.UNKNOWN,
     imgUrl: splasherUrl,
+    locations: [Location.MONT_GAGAZET_CAVE],
   },
   {
     key: MonsterKey.TONBERRY,
@@ -911,6 +1017,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.STOLEN_FAYTH_CAVERN,
     species: Species.TONBERRY,
     imgUrl: tonberryUrl,
+    locations: [Location.CAVERN_OF_THE_STOLEN_FAYTH],
   },
   {
     key: MonsterKey.THORN,
@@ -918,6 +1025,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.STOLEN_FAYTH_CAVERN,
     species: Species.FUNGUS,
     imgUrl: thornUrl,
+    locations: [Location.CAVERN_OF_THE_STOLEN_FAYTH],
   },
   {
     key: MonsterKey.THUNDER_FLAN,
@@ -925,6 +1033,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MUSHROOM_ROCK_ROAD,
     species: Species.FLAN,
     imgUrl: thunderFlanUrl,
+    locations: [Location.MI_IHEN_HIGHROAD_OLDROAD, Location.MUSHROOM_ROCK_ROAD],
   },
   {
     key: MonsterKey.VALAHA,
@@ -932,6 +1041,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.STOLEN_FAYTH_CAVERN,
     species: Species.RUMINANT,
     imgUrl: valahaUrl,
+    locations: [Location.CAVERN_OF_THE_STOLEN_FAYTH],
   },
   {
     key: MonsterKey.VARUNA,
@@ -939,6 +1049,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.SPELLSPINNER,
     imgUrl: varunaUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.VOUIVRE,
@@ -946,6 +1057,11 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MI_IHEN_HIGHROAD,
     species: Species.DRAKE,
     imgUrl: vouivreUrl,
+    locations: [
+      Location.LUCA,
+      Location.MI_IHEN_HIGHROAD_OLDROAD,
+      Location.MUSHROOM_ROCK_ROAD,
+    ],
   },
   {
     key: MonsterKey.WASP,
@@ -953,6 +1069,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.WASP,
     imgUrl: waspUrl,
+    locations: [Location.MACALANIA_WOODS],
   },
   {
     key: MonsterKey.WATER_FLAN,
@@ -960,6 +1077,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.BESAID,
     species: Species.FLAN,
     imgUrl: waterFlanUrl,
+    locations: [Location.BESAID, Location.BESAID_WATERFALL_WAY],
   },
   {
     key: MonsterKey.WHITE_ELEMENT,
@@ -967,6 +1085,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MI_IHEN_HIGHROAD,
     species: Species.ELEMENTAL,
     imgUrl: whiteElementUrl,
+    locations: [Location.MI_IHEN_HIGHROAD],
   },
   {
     key: MonsterKey.WRAITH,
@@ -974,6 +1093,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.INSIDE_SIN,
     species: Species.REVENANT,
     imgUrl: wraithUrl,
+    locations: [Location.INSIDE_SIN, Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.XIPHOS,
@@ -981,6 +1101,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.MACALANIA,
     species: Species.BLADE,
     imgUrl: xiphosUrl,
+    locations: [Location.MACALANIA_WOODS],
   },
   {
     key: MonsterKey.YELLOW_ELEMENT,
@@ -988,6 +1109,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.KILIKA,
     species: Species.ELEMENTAL,
     imgUrl: yellowElementUrl,
+    locations: [Location.KILIKA_WOODS],
   },
   {
     key: MonsterKey.YOWIE,
@@ -995,6 +1117,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.STOLEN_FAYTH_CAVERN,
     species: Species.REPTILE,
     imgUrl: yowieUrl,
+    locations: [Location.CAVERN_OF_THE_STOLEN_FAYTH],
   },
   {
     key: MonsterKey.ZAURUS,
@@ -1002,6 +1125,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.OMEGA_DUNGEON,
     species: Species.REPTILE,
     imgUrl: zaurusUrl,
+    locations: [Location.OMEGA_RUINS],
   },
   {
     key: MonsterKey.ZU,
@@ -1009,6 +1133,7 @@ const monsters: Monster[] = [
     monsterArena: MonsterArena.BIKANEL,
     species: Species.ROC,
     imgUrl: zuUrl,
+    locations: [Location.BIKANEL],
   },
 ];
 
